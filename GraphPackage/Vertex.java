@@ -78,10 +78,75 @@ class Vertex<T> implements VertexInterface<T>
    } // end if
    return result;
    } // end connect
+
    public boolean connect(VertexInterface<T> endVertex)
    {
    return connect(endVertex, 0);
    } // end connect
 
+   private class NeighborIterator implements Iterator<VertexInterface<T>>
+   {
+         private Iterator<Edge> edges;
+      
+         private NeighborIterator()
+      {
+      edges = edgeList.getIterator();
+      } // end default constructor
+      
+         public boolean hasNext()
+      {
+      return edges.hasNext();
+      } // end hasNext
+      
+      public VertexInterface<T> next()
+      {
+      VertexInterface<T> nextNeighbor = null;
+      if (edges.hasNext())
+      {
+      Edge edgeToNextNeighbor = edges.next();
+      nextNeighbor = edgeToNextNeighbor.getEndVertex();
+      }
+      else
+      throw new NoSuchElementException();
+      return nextNeighbor;
+      } // end next
+      
+      public void remove()
+      {
+      throw new UnsupportedOperationException();
+      } // end remove
+   } // end NeighborIterator
+
+   public boolean hasNeighbor()
+   {
+   return !edgeList.isEmpty();
+   } // end hasNeighbor
+
+   public VertexInterface<T> getUnvisitedNeighbor()
+   {
+   VertexInterface<T> result = null;
+   Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
+   while ( neighbors.hasNext() && (result == null) )
+   {
+   VertexInterface<T> nextNeighbor = neighbors.next();
+   if (!nextNeighbor.isVisited())
+   result = nextNeighbor;
+   } // end while
+   return result;
+   } // end getUnvisitedNeighbor
+
+   public boolean equals(Object other)
+   {
+   boolean result;
+   if ((other == null) || (getClass() != other.getClass()))
+   result = false;
+   else
+   { // The cast is safe within this else clause
+   @SuppressWarnings("unchecked")
+   Vertex<T> otherVertex = (Vertex<T>)other;
+   result = label.equals(otherVertex.label);
+   } // end if
+   return result;
+   } // end equals
 
 } // end Vertex
