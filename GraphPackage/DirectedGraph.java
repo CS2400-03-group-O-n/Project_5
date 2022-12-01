@@ -181,8 +181,31 @@ public class DirectedGraph<T> implements GraphInterface<T>
 
     public QueueInterface<T> getDepthFirstTraversal (T origin)
     {
-        
-    }
+        //Assumes graph is not empty
+        resetVertices();
+        QueueInterface<T> traversalOrder = new LinkedQueue<T>();
+        StackInterface<VertexInterface<T>> vertexStack = new LinkedStack<>();
+
+        VertexInterface<T> originVertex = vertices.getValue(origin);
+        originVertex.visit();
+        traversalOrder.enqueue(origin); //Enqueue vertex label
+        vertexStack.push(originVertex); //Enqueue vertex
+
+        while (!vertexStack.isEmpty()){
+            VertexInterface<T> topVertex = vertexStack.peek();
+            VertexInterface<T> nextNeighbor = topVertex.getUnvisitedNeighbor();
+
+            if (nextNeighbor != null){
+                nextNeighbor.visit();
+                traversalOrder.enqueue(nextNeighbor.getLabel());
+                vertexStack.push(nextNeighbor);
+            }
+            else //All neighbors are visited
+                vertexStack.pop();
+        } // end while
+
+        return traversalOrder;
+    } // end getDepthFirstTraversal
 
     public StackInterface<T> getTopologicalOrder() {
         
