@@ -10,22 +10,15 @@ import ADTPackage.*; // Classes that implement various ADTs
 public class DirectedGraph<T> implements GraphInterface<T>
 {
 	private int edgeCount;
-	private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
-    private T[] labels; // labels[i] contains the label for vertex i
-    private T vertices;
+    private DictionaryInterface<T, VertexInterface<T>> vertices;
 
 	public DirectedGraph()
 	{
 		edgeCount=0;
+        vertices = new LinkedDictionary<>();
     }
-    public DirectedGraph(int n)
-        {
-            
-            edges = new boolean[n][n]; // All values initially false
-            labels = (T[]) new Object[n]; // All values initially null
-            vertices = new Vertex [n];
-        }
-
+   
+       // < Implementations of the graph operations go here. > ...
 
         public boolean addVertex(T vertexLabel)
         {
@@ -100,7 +93,7 @@ public class DirectedGraph<T> implements GraphInterface<T>
             Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
             while (vertexIterator.hasNext())
             {
-                VertexInterface<T> nextVertex = VertexIterator.next();
+                VertexInterface<T> nextVertex = vertexIterator.next();
                 nextVertex.unvisit();
                 nextVertex.setCost(0);
                 nextVertex.setPredecessor(null);
@@ -131,7 +124,7 @@ public class DirectedGraph<T> implements GraphInterface<T>
            while(neighbors.hasNext())
            {
                VertexInterface<T> nextNeighbor = neighbors.next();
-               if (!nextNeighbor.isVisted())
+               if (!nextNeighbor.isVisited())
                {
                    nextNeighbor.visit();
                    traversalOrder.enqueue(nextNeighbor.getLabel());
@@ -199,6 +192,41 @@ public class DirectedGraph<T> implements GraphInterface<T>
 
     public double getCheapestPath(T begin, T end, StackInterface<T> path) {
         // TODO Auto-generated method stub
+
+        /* ALGORITHM
+         done = false
+vertexQueue = a new queue to hold vertices as they are visited
+Mark originVertex as visited
+vertexQueue.enqueue(originVertex)
+while (!done && !vertexQueue.isEmpty())
+{
+frontVertex = vertexQueue.dequeue()
+while (!done && frontVertex has a neighbor)
+{
+nextNeighbor = next neighbor of frontVertex
+if (nextNeighbor is not visited)
+{
+Mark nextNeighbor as visited
+Set the length of the path to nextNeighbor to 1 + length of path to frontVertex
+Set the predecessor of nextNeighbor to frontVertex
+vertexQueue.enqueue(nextNeighbor)
+}
+if (nextNeighbor equals endVertex)
+done = true
+}
+}
+// Traversal ends; construct shortest path
+pathLength = length of path to endVertex
+path.push(endVertex)
+vertex = endVertex
+while (vertex has a predecessor)
+{
+vertex = predecessor of vertex
+path.push(vertex)
+}
+return pathLength
+         */
+
         return 0;
     }
         
