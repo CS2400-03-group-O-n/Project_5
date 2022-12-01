@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import javax.swing.SwingWorker.StateValue;
+
 /**
    A class that implements the ADT dictionary by using a chain of linked nodes.
    The dictionary is sorted and has distinct search keys.
@@ -121,6 +123,16 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
       private ValueIterator(){
          nextNode = firstNode;
       }
+      
+      public boolean hasNext() {
+         // TODO Auto-generated method stub
+         return false;
+      }
+
+      public K next() {
+         // TODO Auto-generated method stub
+         return null;
+      }
    }
 
 
@@ -181,8 +193,26 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
       and setNextNode are here. There is no setKey.
       . . . */
 
+   public getKey()
+   {
 
+   }
+   public getValue()
+   {
 
+   }
+   public setValue()
+   {
+
+   }
+   public getNextNode()
+   {
+
+   }
+   public setNextNode()
+   {
+      
+   }
       
 	
 } // end SortedLinkedDictionary

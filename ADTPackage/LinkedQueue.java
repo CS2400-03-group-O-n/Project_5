@@ -19,6 +19,33 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 
 //  < Implementations of the queue operations go here. >
 //  . . .
+	public void enqueue(T newEntry)
+	{
+
+	}
+
+	public T dequeue()
+	{
+
+	}
+
+	
+	public T getFront()
+	{
+
+	}
+
+
+	public boolean isEmpty()
+	{
+
+	}
+
+	public void clear()
+	{
+
+	}
+
 
 	private class Node
 	{
