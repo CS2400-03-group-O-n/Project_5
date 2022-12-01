@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
    @author Timothy M. Henry
    @version 5.0
 */
-public class LinkedDictionary <K, V> 
+public class LinkedDictionary <K extends Comparable <? super K>, V> 
              implements DictionaryInterface<K, V>
 {
 	private Node firstNode; // Reference to first node of chain
@@ -130,11 +130,60 @@ public class LinkedDictionary <K, V>
 		private K key;
 		private V value;
 		private Node next;
+   
+   } // end Node
+
+
+
+   public V remove(K key) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public V getValue(K key) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public boolean contains(K key) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   public Iterator<K> getKeyIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Iterator<V> getValueIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public boolean isEmpty() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   
+   public int getSize() {
+      // TODO Auto-generated method stub
+      return 0;
+   }
+
+   public void clear() {
+      // TODO Auto-generated method stub
+      
+   }
+
 
 /*    Constructors and the methods getKey, getValue, setValue, getNextNode,
       and setNextNode are here. There is no setKey.
       . . . */
 
-	} // end Node
+
+
+      
+	
 } // end SortedLinkedDictionary
 		
