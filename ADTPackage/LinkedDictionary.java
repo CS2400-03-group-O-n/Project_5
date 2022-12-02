@@ -1,3 +1,5 @@
+package ADTPackage;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -24,7 +26,11 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
    private void initializeDataFields() {
    }
 
-   public V add(K key, V value)
+
+/* Implementations of other methods in DictionaryInterface.
+   . . . */
+
+ public V add(K key, V value)
 	{
 		V result = null;
       if ((key == null) || (value == null))
@@ -70,10 +76,50 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 
 		return result;
 	} // end add
+   
+   public V remove(K key) {
+      // TODO Auto-generated method stub
+      return null;
+   }
 
-/* Implementations of other methods in DictionaryInterface.
-   . . .
-   Private classes KeyIterator and ValueIterator (see Segment 21.20). >
+   public V getValue(K key) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public boolean contains(K key) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   public Iterator<K> getKeyIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Iterator<V> getValueIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public boolean isEmpty() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   
+   public int getSize() {
+      // TODO Auto-generated method stub
+      return 0;
+   }
+
+   public void clear() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   
+   /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
    . . . */
 
    private class KeyIterator implements Iterator<K>
@@ -121,69 +167,69 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
       private ValueIterator(){
          nextNode = firstNode;
       }
+      public boolean hasNext() {
+         // TODO Auto-generated method stub
+         return false;
+      }
+
+      public K next() {
+         // TODO Auto-generated method stub
+         return null;
+      }
    }
 
-
+   /* < The private class Node > */
 
 	private class Node
 	{
 		private K key;
 		private V value;
 		private Node next;
+
+      private Node(K searchKey, V dataValue)
+         {
+            key = searchKey;
+            value = dataValue;
+            next = null;
+         } // end constructor
+
+         private Node(K searchKey, V dataValue, Node nextNode)
+         {
+            key = searchKey;
+            value = dataValue;
+            next = nextNode;
+         } // end constructor
    
-   } // end Node
+    private K getKey()
+    {
+    return key;
+    } // end getKey
 
+    private V getValue()
+    {
+    return value;
+   } // end getValue
 
-
-   public V remove(K key) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public V getValue(K key) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public boolean contains(K key) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   public Iterator<K> getKeyIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public Iterator<V> getValueIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
+    private void setValue(V newValue)
+    {
+    value = newValue;
+    } // end setV
    
-   public int getSize() {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+    // end entry
+    private Node getNextNode()
+    {
+      return next;
+    }
 
-   public void clear() {
-      // TODO Auto-generated method stub
-      
-   }
+    private void setNextNode(Node nextNode)
+    {
+      next = nextNode;
+    }
 
-
-/*    Constructors and the methods getKey, getValue, setValue, getNextNode,
-      and setNextNode are here. There is no setKey.
-      . . . */
-
+     
+   } // end node
 
 
-      
 	
 } // end SortedLinkedDictionary
 		
