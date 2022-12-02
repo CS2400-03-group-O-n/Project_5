@@ -1,5 +1,6 @@
 package GraphPackage;
 import java.util.Iterator;
+import ADTPackage.*;
 /**
    A class that implements the ADT directed graph.
    @author Frank M. Carrano
