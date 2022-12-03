@@ -149,4 +149,61 @@ class Vertex<T> implements VertexInterface<T>
    return result;
    } // end equals
 
+   public T getLabel() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public void visit() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   public void unvisit() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   public boolean isVisited() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   public Iterator<VertexInterface<T>> getNeighborIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Iterator<Double> getWeightIterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public void setPredecessor(VertexInterface<T> predecessor) {
+      // TODO Auto-generated method stub
+      
+   }
+
+   
+   public VertexInterface<T> getPredecessor() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   
+   public boolean hasPredecessor() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   public void setCost(double newCost) {
+      // TODO Auto-generated method stub
+      
+   }
+
+   public double getCost() {
+      // TODO Auto-generated method stub
+      return 0;
+   }
+
 } // end Vertex

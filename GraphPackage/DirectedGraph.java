@@ -100,9 +100,6 @@ public class DirectedGraph<T> implements GraphInterface<T>
             } // end while
         } // end resetVertices
 
-
-
-
    
     // To do Breadth First Traversal
     public QueueInterface<T> getBreadthFirstTraversal (T origin)
