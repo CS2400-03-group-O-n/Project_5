@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 {
    private Node firstNode;
+  private Node lastNode;
    private int  numberOfEntries;;
 
    public LinkedListWithIterator()
@@ -23,6 +24,14 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
      you can see them in Chapter 12, beginning at Segment 12.7 >
    . . . */
    
+
+   private void initializeDataFields() {
+      firstNode = null;
+      lastNode = null;
+      numberOfEntries = 0;
+   } // end initializeDataFields
+
+
    public Iterator<T> iterator()
    {
 	   return new IteratorForLinkedList();
@@ -41,6 +50,16 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 		{
 			nextNode = firstNode;
 		} // end default constructor
+
+      public boolean hasNext() {
+         // TODO Auto-generated method stub
+         return false;
+      }
+
+      public T next() {
+         // TODO Auto-generated method stub
+         return null;
+      }
 		
       // Implementations of the methods in the interface Iterator go here.
 
@@ -83,68 +102,143 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
          next = nextNode;
       } // end setNextNode
 	} // end Node
-/* 
-   @Override
+
    public void add(T newEntry) {
-      // TODO Auto-generated method stub
-      
-   }
+      Node newNode = new Node(newEntry);
+      if (isEmpty())
+      firstNode = newNode;
+      else // Add to end of nonempty list
+      {
+      Node lastNode = getNodeAt(numberOfEntries);
+      lastNode.setNextNode(newNode); // Make last node reference new node
+      } // end if
+      numberOfEntries++;
+      } // end add
 
-   @Override
    public void add(int newPosition, T newEntry) {
-      // TODO Auto-generated method stub
-      
-   }
+      if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1))
+      {
+      Node newNode = new Node(newEntry);
+      if (newPosition == 1) // Case 1
+      {
+         newNode.setNextNode(firstNode);
+         firstNode = newNode;
+         }
+      else // Case 2: List is not empty
+         { // and givenPosition > 1
+         Node nodeBefore = getNodeAt(newPosition - 1);
+         Node nodeAfter = nodeBefore.getNextNode();
+         newNode.setNextNode(nodeAfter);
+         nodeBefore.setNextNode(newNode);
+         } // end if
+      numberOfEntries++;
+      }
+      else
+         throw new IndexOutOfBoundsException(
+         "Illegal position given to add operation.");
+      } // end add
 
-   @Override
    public T remove(int givenPosition) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      T result = null; // Return value
+      if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
+      {
+      // Assertion: !isEmpty()
+      if (givenPosition == 1) // Case 1: Remove first entry
+      {
+      result = firstNode.getData(); // Save entry to be removed
+      firstNode = firstNode.getNextNode(); // Remove entry
+      }
+      else // Case 2: Not first entry
+      {
+         Node nodeBefore = getNodeAt(givenPosition - 1);
+         Node nodeToRemove = nodeBefore.getNextNode();
+         result = nodeToRemove.getData(); // Save entry to be removed
+         Node nodeAfter = nodeToRemove.getNextNode();
+         nodeBefore.setNextNode(nodeAfter); // Remove entry
+         } // end if
+      numberOfEntries--; // Update count
+      return result; // Return removed entry
+      }
+      else
+         throw new IndexOutOfBoundsException(
+         "Illegal position given to remove operation.");
+   } // end remove
 
-   @Override
    public void clear() {
-      // TODO Auto-generated method stub
-      
+      initializeDataFields();
    }
 
-   @Override
    public T replace(int givenPosition, T newEntry) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
+      {
+      // Assertion: !isEmpty()
+      Node desiredNode = getNodeAt(givenPosition);
+      T originalEntry = desiredNode.getData();
+      desiredNode.setData(newEntry);
+      return originalEntry;
+      }
+      else
+      throw new IndexOutOfBoundsException(
+      "Illegal position given to replace operation.");
+      } // end replace
 
-   @Override
    public T getEntry(int givenPosition) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
+      {
+      // Assertion: !isEmpty()
+      return getNodeAt(givenPosition).getData();
+      }
+      else
+      throw new IndexOutOfBoundsException(
+      "Illegal position given to getEntry operation.");
+      } // end getEntry
 
-   @Override
    public T[] toArray() {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      // The cast is safe because the new array contains null entries
+      @SuppressWarnings("unchecked")
+      T[] result = (T[])new Object[numberOfEntries];
+      int index = 0;
+      Node currentNode = firstNode;
+      while ((index < numberOfEntries) && (currentNode != null))
+      {
+      result[index] = currentNode.getData();
+      currentNode = currentNode.getNextNode();
+      index++;
+      } // end while
+      return result;
+   } // end toArray
 
-   @Override
    public boolean contains(T anEntry) {
-      // TODO Auto-generated method stub
-      return false;
-   }
+      boolean found = false;
+      Node currentNode = firstNode;
+      while (!found && (currentNode != null))
+      {
+      if (anEntry.equals(currentNode.getData()))
+      found = true;
+      else
+      currentNode = currentNode.getNextNode();
+      } // end while
+      return found;
+      } // end contains
 
-   @Override
    public int getLength() {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+      return numberOfEntries;
+ } // end getLength
 
-   @Override
    public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-*/
-
+      boolean result;
+      if (numberOfEntries == 0) // Or getLength() == 0
+         {
+         // Assertion: firstNode == null
+         result = true;
+         }
+      else
+         {
+         // Assertion: firstNode != null
+         result = false;
+         } // end if
+      return result;
+      } // end isEmpty
 } // end LinkedListWithIterator
 
 

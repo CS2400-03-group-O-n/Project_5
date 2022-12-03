@@ -1,9 +1,6 @@
 package ADTPackage;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import javax.swing.SwingWorker.StateValue;
 
 /**
    A class that implements the ADT dictionary by using a chain of linked nodes.
@@ -22,13 +19,24 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 	
 	public LinkedDictionary()
 	{
+      
       initializeDataFields();
 	} // end default constructor
 	
    private void initializeDataFields() {
+      firstNode =null;
+      numberOfEntries=0;
    }
 
-   public V add(K key, V value)
+/** 
+ * @param key
+ * @param value
+ * @return V
+ */
+/* Implementations of other methods in DictionaryInterface.
+   . . . */
+
+ public V add(K key, V value)
 	{
 		V result = null;
       if ((key == null) || (value == null))
@@ -74,157 +82,214 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 
 		return result;
 	} // end add
-
-
-   /* < Implementations of other methods in DictionaryInterface. >
-   . . . */
-
-   public V remove(K key) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public V getValue(K key) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public boolean contains(K key) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   public Iterator<K> getKeyIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public Iterator<V> getValueIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
    
+   
+   /** 
+    * @param key
+    * @return V
+    */
+   public V remove(K key) {
+      V result = null;
+
+      // Search chain until you either find a node containing key
+      // or locate where it should be
+      Node currentNode = firstNode;
+      Node nodeBefore = null;
+
+      while ( (currentNode != null) && (key.compareTo(currentNode.getKey()) > 0) )
+         {
+            nodeBefore = currentNode;
+            currentNode = currentNode.getNextNode();
+         } // end while
+         
+      if ( (currentNode != null) && key.equals(currentNode.getKey()) )
+         {
+            // Key in dictionary; remove corresponding value
+            result = currentNode.getValue(); // Get old value
+            currentNode= currentNode.getNextNode();     // Replace value w/ next
+         }
+      
+            // Assertion: key and value are not null
+            Node newNode = currentNode.getNextNode();  // Create new node
+            
+            if (nodeBefore == null)
+            {                                    
+               firstNode = newNode;
+            }
+            else                                 
+            {
+               nodeBefore.setNextNode(newNode); // currentNode is after new node
+            } // end if
+            numberOfEntries--;               // decrease length for both cases
+
+        return result;
+   }  // end remove
+
+   /** 
+    * @param key
+    * @return V
+    */
+   public V getValue(K key) {
+      return getValue(key);
+   }
+   
+   /** 
+    * @param key
+    * @return boolean
+    */
+   public boolean contains(K key) {
+      return false;
+   }
+   
+   /** 
+    * @return Iterator<K>
+    */
+   public Iterator<K> getKeyIterator() {
+      return new KeyIterator();
+   }
+
+   /** 
+    * @return Iterator<V>
+    */
+   public Iterator<V> getValueIterator() {
+      return new ValueIterator();
+      }
+
+   /** 
+    * @return boolean
+    */
+   public boolean isEmpty() {
+      return false;
+   }
+   
+   /** 
+    * @return int
+    */
    public int getSize() {
-      // TODO Auto-generated method stub
-      return 0;
+      return numberOfEntries;
    }
 
    public void clear() {
-      // TODO Auto-generated method stub
-      
+      numberOfEntries =0;       
    }
 
-
-  /* < Private classes KeyIterator and ValueIterator (see Segment 21.20). >
+   
+   /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
    . . . */
 
    private class KeyIterator implements Iterator<K>
    {
-   private int currentIndex; // Current position in hash table
-   private int NumberLeft; // Number of entries left in iteration
-   private KeyIterator()
-   {
-   currentIndex = 0;
-   numberLeft = numberOfEntries;
-   } // end default constructor
-   public boolean hasNext()
-   {
-   return numberLeft > 0;
-   } // end hasNext
-   public K next()
-   {
-   K result = null;
-   if (hasNext())
-   {
-   // Skip table locations that do not contain a current entry
-   while ( (hashTable[currentIndex] == null) ||
-   hashTable[currentIndex] == AVAILABLE )
-   {
-   currentIndex++;
-   } // end while
-   result = hashTable[currentIndex].getKey();
-   numberLeft--;
-   currentIndex++;
-   }
-   else
-   throw new NoSuchElementException();
-   return result;
-   } // end next
-   public void remove()
-   {
-   throw new UnsupportedOperationException();
-   } // end remove
+      private Node next; // Link to next node
+      private int numberLeft; // Number of entries left in iteration
+
+      private KeyIterator()
+      {
+       next= firstNode;
+      } // end default constructor
+
+      public boolean hasNext()
+      {
+         return numberLeft > 0;
+      } // end hasNext
+
+      public K next()
+      {
+         K result = null;
+      if (hasNext())
+         {
+            result = next.getKey();
+            numberLeft--;  
+         }
+      else
+            throw new NoSuchElementException();
+      return result;
+      } // end next
+      public void remove()
+         {
+            throw new UnsupportedOperationException();
+         } // end remove
    } // end KeyIterator
 
 
-   private class ValueIterator implements Iterator<K>
+   private class ValueIterator implements Iterator<V>
    {
-      private Node nextNode;
+      private Node next;
+
       private ValueIterator(){
-         nextNode = firstNode;
+         next = firstNode;
       }
-      
       public boolean hasNext() {
          // TODO Auto-generated method stub
          return false;
       }
 
-      public K next() {
-         // TODO Auto-generated method stub
-         return null;
-      }
+      public V next() {
+         V result = null;
+         if (hasNext())
+         {
+            result = next.getValue();
+         }
+         else
+         {
+            throw new NoSuchElementException();
+         }
+         return result;
+      } // end next
+      public void remove()
+      {
+         throw new UnsupportedOperationException();
+      } // end remove
    }
 
-/* < The private class Node. >
- . . . */
+   /* < The private class Node > */
+
 	private class Node
 	{
 		private K key;
 		private V value;
 		private Node next;
-   
-   } // end Node
 
-
-
-
-/*    Constructors and the methods getKey, getValue, setValue, getNextNode,
-      and setNextNode are here. There is no setKey.
-      . . . */
-
-      private class Entry<K, V>
-      {
-         private K key;
-         private V value;
-         
-         private Entry(K searchKey, V dataValue)
+      private Node(K searchKey, V dataValue)
          {
-         key = searchKey;
-         value = dataValue;
+            key = searchKey;
+            value = dataValue;
+            next = null;
          } // end constructor
-         
-         private K getKey()
-         {
-         return key;
-         } // end getKey
-         
-         private V getValue()
-         {
-         return value;
-         } // end getValue
 
-         private void setValue(V newValue)
+         private Node(K searchKey, V dataValue, Node nextNode)
          {
-         value = newValue;
-         } // end setValue
-      } // end Entry
-      
-	
+            key = searchKey;
+            value = dataValue;
+            next = nextNode;
+         } // end constructor
+   
+    private K getKey()
+    {
+    return key;
+    } // end getKey
+
+    private V getValue()
+    {
+    return value;
+   } // end getValue
+
+    private void setValue(V newValue)
+    {
+    value = newValue;
+    } // end setV
+   
+    // end entry
+    private Node getNextNode()
+    {
+      return next;
+    }
+
+    private void setNextNode(Node nextNode)
+    {
+      next = nextNode;
+    }
+     // end entry
+
+   } // end node 
+
 } // end SortedLinkedDictionary
-		
