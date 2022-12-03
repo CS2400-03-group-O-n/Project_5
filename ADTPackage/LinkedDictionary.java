@@ -1,5 +1,4 @@
 package ADTPackage;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -20,13 +19,14 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 	
 	public LinkedDictionary()
 	{
+      
       initializeDataFields();
 	} // end default constructor
 	
    private void initializeDataFields() {
+      firstNode =null;
+      numberOfEntries=0;
    }
-
-
 
 /** 
  * @param key
@@ -89,80 +89,84 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
     * @return V
     */
    public V remove(K key) {
+      V result = null;
+
+      // Search chain until you either find a node containing key
+      // or locate where it should be
+      Node currentNode = firstNode;
+      Node nodeBefore = null;
+
+      while ( (currentNode != null) && (key.compareTo(currentNode.getKey()) > 0) )
+         {
+            nodeBefore = currentNode;
+            currentNode = currentNode.getNextNode();
+         } // end while
+         
+      if ( (currentNode != null) && key.equals(currentNode.getKey()) )
+         {
+            // Key in dictionary; remove corresponding value
+            result = currentNode.getValue(); // Get old value
+            currentNode= currentNode.getNextNode();     // Replace value w/ next
+         }
       
-   V result = null;
-   int keyIndex = locateIndex(key);
-   
-   if (keyIndex < numberOfEntries)
-   {
-   // Key found; remove entry and return its value
-   result = dictionary[keyIndex].getValue();
-   // Replace removed entry with last entry
-   dictionary[keyIndex] = dictionary[numberOfEntries - 1];
-   dictionary[numberOfEntries - 1] = null;
-   numberOfEntries--;
-   } // end if
-   // Else result is null
-   
-   return result;
-} // end remove
+            // Assertion: key and value are not null
+            Node newNode = currentNode.getNextNode();  // Create new node
+            
+            if (nodeBefore == null)
+            {                                    
+               firstNode = newNode;
+            }
+            else                                 
+            {
+               nodeBefore.setNextNode(newNode); // currentNode is after new node
+            } // end if
+            numberOfEntries--;               // decrease length for both cases
 
+        return result;
+   }  // end remove
 
-   
    /** 
     * @param key
     * @return V
     */
    public V getValue(K key) {
-      // TODO Auto-generated method stub
-      return null;
+      return getValue(key);
    }
-
    
    /** 
     * @param key
     * @return boolean
     */
    public boolean contains(K key) {
-      // TODO Auto-generated method stub
       return false;
    }
-
    
    /** 
     * @return Iterator<K>
     */
    public Iterator<K> getKeyIterator() {
-      // TODO Auto-generated method stub
-      return null;
+      return new KeyIterator();
    }
 
-   
    /** 
     * @return Iterator<V>
     */
    public Iterator<V> getValueIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      return new ValueIterator();
+      }
 
-   
    /** 
     * @return boolean
     */
    public boolean isEmpty() {
-      // TODO Auto-generated method stub
       return false;
    }
-
-   
    
    /** 
     * @return int
     */
    public int getSize() {
-      // TODO Auto-generated method stub
-      return 0;
+      return numberOfEntries;
    }
 
    public void clear() {
@@ -175,48 +179,66 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 
    private class KeyIterator implements Iterator<K>
    {
+      private Node next; // Link to next node
+      private int numberLeft; // Number of entries left in iteration
+
       private KeyIterator()
       {
-      
+       next= firstNode;
       } // end default constructor
+
       public boolean hasNext()
       {
+         return numberLeft > 0;
       } // end hasNext
+
       public K next()
       {
-         K result;
+         K result = null;
       if (hasNext())
          {
-            result = hashTable[currentIndex].getKey();
-            
+            result = next.getKey();
+            numberLeft--;  
          }
       else
             throw new NoSuchElementException();
       return result;
       } // end next
-         public void remove()
+      public void remove()
          {
             throw new UnsupportedOperationException();
          } // end remove
    } // end KeyIterator
 
 
-   private class ValueIterator implements Iterator<K>
+   private class ValueIterator implements Iterator<V>
    {
-      private Node nextNode;
+      private Node next;
 
       private ValueIterator(){
-         nextNode = firstNode;
+         next = firstNode;
       }
       public boolean hasNext() {
          // TODO Auto-generated method stub
          return false;
       }
 
-      public K next() {
-         // TODO Auto-generated method stub
-         return null;
-      }
+      public V next() {
+         V result = null;
+         if (hasNext())
+         {
+            result = next.getValue();
+         }
+         else
+         {
+            throw new NoSuchElementException();
+         }
+         return result;
+      } // end next
+      public void remove()
+      {
+         throw new UnsupportedOperationException();
+      } // end remove
    }
 
    /* < The private class Node > */
@@ -270,7 +292,4 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
 
    } // end node 
 
-
-	
 } // end SortedLinkedDictionary
-		

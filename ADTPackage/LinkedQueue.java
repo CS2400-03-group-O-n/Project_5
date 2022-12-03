@@ -57,4 +57,29 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 			next = nextNode;
 		} // end setNextNode
 	} // end Node
+
+	public void enqueue(T newEntry) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public T dequeue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public T getFront() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 } // end LinkedQueue
