@@ -1,6 +1,6 @@
 package ADTPackage;
 import java.util.Iterator;
-
+import java.util.NoSuchElementException;
 /**
    A class that implements the ADT list by using a chain of linked nodes.
    The list has an iterator. The class is similar to LList.
@@ -50,14 +50,27 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 		} // end default constructor
 
       public boolean hasNext() {
-         // TODO Auto-generated method stub
-         return false;
-      }
+         return nextNode != null;
+      } // end hasNext
 
       public T next() {
-         // TODO Auto-generated method stub
-         return null;
-      }
+         T result;
+         if (hasNext())
+         {
+         result = nextNode.getData();
+         nextNode = nextNode.getNextNode(); // Advance iterator
+         }
+         else
+         throw new NoSuchElementException("Illegal call to next(); " +
+         "iterator is after end of list.");
+         return result; // Return next entry in iteration
+         } // end next
+
+      public void remove()
+         {
+         throw new UnsupportedOperationException("remove() is not supported " +
+         "by this iterator");
+         } // end remove
 		
       // Implementations of the methods in the interface Iterator go here.
 

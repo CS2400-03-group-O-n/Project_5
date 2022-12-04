@@ -1,3 +1,6 @@
+package ADTPackage;
+import java.util.NoSuchElementException;
+
 /**
    A class that implements a queue of objects by using
    a chain of linked nodes that has both head and tail references.
@@ -59,27 +62,42 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 	} // end Node
 
 	public void enqueue(T newEntry) {
-		// TODO Auto-generated method stub
+		Node newNode = new Node(newEntry, null);
+
+		if (isEmpty())
+		   firstNode = newNode;
+		else
+		   lastNode.setNextNode(newNode);
 		
-	}
+		lastNode = newNode;
+    } // end enqueue		
 
 	public T dequeue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		T front = getFront();  // Might throw EmptyQueueException
+                              // Assertion: firstNode != null
+      firstNode.setData(null);
+      firstNode = firstNode.getNextNode();
+      
+      if (firstNode == null)
+         lastNode = null;
+      
+      return front;
+	} // end dequeue
 
 	public T getFront() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+      if (isEmpty())
+         throw new NoSuchElementException(); // instead of  throw new EmptyQueueException();
+      else
+         return firstNode.getData();
+    } // end getFront
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		return (firstNode == null) && (lastNode == null);
+	} // end isEmpty
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
+		firstNode = null;
+		lastNode = null;
+	 } // end clear
 } // end LinkedQueue
