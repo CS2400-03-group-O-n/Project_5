@@ -1,4 +1,6 @@
 package ADTPackage;
+import java.util.NoSuchElementException;
+
 /**
    A class that implements a queue of objects by using
    a chain of linked nodes that has both head and tail references.
@@ -20,33 +22,47 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 
 //  < Implementations of the queue operations go here. >
 //  . . .
-	public void enqueue(T newEntry)
-	{
 
-	}
+	public void enqueue(T newEntry) {
+		Node newNode = new Node(newEntry, null);
 
-	public T dequeue()
-	{
+		if (isEmpty())
+		   firstNode = newNode;
+		else
+		   lastNode.setNextNode(newNode);
+		
+		lastNode = newNode;
+    } // end enqueue		
 
-	}
+	public T dequeue() {
+		T front = getFront();  // Might throw EmptyQueueException
+                              // Assertion: firstNode != null
+      firstNode.setData(null);
+      firstNode = firstNode.getNextNode();
+      
+      if (firstNode == null)
+         lastNode = null;
+      
+      return front;
+	} // end dequeue
 
+	public T getFront() {
+
+      if (isEmpty())
+         throw new NoSuchElementException(); // instead of  throw new EmptyQueueException();
+      else
+         return firstNode.getData();
+    } // end getFront
+
+	public boolean isEmpty() {
+		return (firstNode == null) && (lastNode == null);
+	} // end isEmpty
+
+	public void clear() {
+		firstNode = null;
+		lastNode = null;
+	 } // end clearpublic void enqueue(T newEntry)
 	
-	public T getFront()
-	{
-
-	}
-
-
-	public boolean isEmpty()
-	{
-
-	}
-
-	public void clear()
-	{
-
-	}
-
 
 	private class Node
 	{
@@ -86,28 +102,4 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 		} // end setNextNode
 	} // end Node
 
-	public void enqueue(T newEntry) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public T dequeue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public T getFront() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
 } // end LinkedQueue

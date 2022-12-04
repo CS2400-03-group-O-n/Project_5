@@ -25,96 +25,46 @@ class Vertex<T> implements VertexInterface<T>
       cost = 0;
    } // end constructor
 
-/* Implementations of the vertex operations go here.
-   . . . */
-
-   public boolean hasNeighbor()
+      protected class Edge
       {
-      return !edgeList.isEmpty();
-      } // end hasNeighbor
+         private VertexInterface<T> vertex; // Vertex at end of edge
+         private double weight;
+         
+         protected Edge(VertexInterface<T> endVertex, double edgeWeight)
+         {
+            vertex = endVertex;
+            weight = edgeWeight;
+         } // end constructor
+         
+         protected Edge(VertexInterface<T> endVertex)
+         {
+            vertex = endVertex;
+            weight = 0;
+         } // end constructor
 
-   public VertexInterface<T> getUnvisitedNeighbor()
-   {
-      VertexInterface<T> result = null;
-      Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
-      while ( neighbors.hasNext() && (result == null) )
-      {
-      VertexInterface<T> nextNeighbor = neighbors.next();
-      if (!nextNeighbor.isVisited())
-      result = nextNeighbor;
-      } // end while
-      return result;
-   } // end getUnvisitedNeighbor
+         protected VertexInterface<T> getEndVertex()
+         {
+            return vertex;
+         } // end getEndVertex
+         
+         protected double getWeight()
+         {
+            return weight; 
+         } // end getWeight
+      } // end Edge
 
-   public boolean equals(Object other)
-   {
-      boolean result;
-      if ((other == null) || (getClass() != other.getClass()))
-      result = false;
-      else
-      { // The cast is safe within this else clause
-      @SuppressWarnings("unchecked")
-      Vertex<T> otherVertex = (Vertex<T>)other;
-      result = label.equals(otherVertex.label);
-      } // end if
-      return result;
-   } // end equals
 
-   public T getLabel() {
-      // TODO Auto-generated method stub
-      return null;
-   }
 
-   public void visit() {
-      // TODO Auto-generated method stub
-      
-   }
+       
+       /** 
+        * @param endVertex
+        * @param edgeWeight
+        * @return boolean
+        */
+       /* Implementations of the vertex operations go here.
+       . . . */
 
-   public void unvisit() {
-      // TODO Auto-generated method stub
-      
-   }
 
-   public boolean isVisited() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   public Iterator<VertexInterface<T>> getNeighborIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public Iterator<Double> getWeightIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public void setPredecessor(VertexInterface<T> predecessor) {
-      // TODO Auto-generated method stub
-      
-   }
-
-   public VertexInterface<T> getPredecessor() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public boolean hasPredecessor() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   
-   public void setCost(double newCost) {
-      // TODO Auto-generated method stub
-      
-   }
-
-   public double getCost() {
-      // TODO Auto-generated method stub
-      return 0;
-   }
 
    public boolean connect(VertexInterface<T> endVertex, double edgeWeight)
    {
@@ -138,39 +88,17 @@ class Vertex<T> implements VertexInterface<T>
    return result;
    } // end connect
 
+   
+   /** 
+    * @param endVertex
+    * @return boolean
+    */
    public boolean connect(VertexInterface<T> endVertex)
    {
    return connect(endVertex, 0);
    } // end connect
 
-   protected class Edge
-   {
-      private VertexInterface<T> vertex; // Vertex at end of edge
-      private double weight;
-      
-      protected Edge(VertexInterface<T> endVertex, double edgeWeight)
-      {
-         vertex = endVertex;
-         weight = edgeWeight;
-      } // end constructor
-      
-      protected Edge(VertexInterface<T> endVertex)
-      {
-         vertex = endVertex;
-         weight = 0;
-      } // end constructor
 
-      protected VertexInterface<T> getEndVertex()
-      {
-         return vertex;
-      } // end getEndVertex
-      
-      protected double getWeight()
-      {
-         return weight; 
-      } // end getWeight
-   } // end Edge
- 
    private class NeighborIterator implements Iterator<VertexInterface<T>>
    {
          private Iterator<Edge> edges;
@@ -204,62 +132,159 @@ class Vertex<T> implements VertexInterface<T>
       } // end remove
    } // end NeighborIterator
 
+   private class WeightIterator implements Iterator<Double>
+   {
+         private Iterator<Edge> edges;
+      
+         private WeightIterator()
+      {
+      edges = edgeList.getIterator();
+      } // end default constructor
+      
+         public boolean hasNext()
+      {
+      return edges.hasNext();
+      } // end hasNext
+      
+      public Double next()
+      {
+      double nextNeighbor = 0;
+      if (edges.hasNext())
+      {
+      Edge edgeToNextNeighbor = edges.next();
+      nextNeighbor = edgeToNextNeighbor.getWeight();
+      }
+      else
+         throw new NoSuchElementException();
+      return nextNeighbor;
+      } // end next
+      
+      public void remove()
+      {
+      throw new UnsupportedOperationException();
+      } // end remove
+   } // end WeightIterator
 
+
+   
+   /** 
+    * @return boolean
+    */
+   public boolean hasNeighbor()
+   {
+   return !edgeList.isEmpty();
+   } // end hasNeighbor
+
+   
+   /** 
+    * @return VertexInterface<T>
+    */
+   public VertexInterface<T> getUnvisitedNeighbor()
+      {
+         VertexInterface<T> result = null;
+         Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
+         while ( neighbors.hasNext() && (result == null) )
+         {
+         VertexInterface<T> nextNeighbor = neighbors.next();
+         if (!nextNeighbor.isVisited())
+         result = nextNeighbor;
+         } // end while
+         return result;
+      } // end getUnvisitedNeighbor
+
+   
+   /** 
+    * @param other
+    * @return boolean
+    */
+   public boolean equals(Object other)
+      {
+         boolean result;
+         if ((other == null) || (getClass() != other.getClass()))
+         result = false;
+         else
+         { // The cast is safe within this else clause
+         @SuppressWarnings("unchecked")
+         Vertex<T> otherVertex = (Vertex<T>)other;
+         result = label.equals(otherVertex.label);
+         } // end if
+         return result;
+      } // end equals
+
+   
+   /** 
+    * @return T
+    */
    public T getLabel() {
-      // TODO Auto-generated method stub
-      return null;
+      return label;
    }
 
    public void visit() {
-      // TODO Auto-generated method stub
-      
+      visited = true;      
    }
 
    public void unvisit() {
-      // TODO Auto-generated method stub
-      
+      visited = false;      
    }
 
+   /** 
+    * @return boolean
+    */
    public boolean isVisited() {
-      // TODO Auto-generated method stub
-      return false;
+      return visited;
    }
 
+   /** 
+    * @return Iterator<VertexInterface<T>>
+    */
    public Iterator<VertexInterface<T>> getNeighborIterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
+      return new NeighborIterator();
+   } // end getNeighborIterator
 
+   
+   /** 
+    * @return Iterator<Double>
+    */
    public Iterator<Double> getWeightIterator() {
-      // TODO Auto-generated method stub
-      return null;
+      return new WeightIterator();
    }
 
+   /** 
+    * @param predecessor
+    */
    public void setPredecessor(VertexInterface<T> predecessor) {
-      // TODO Auto-generated method stub
-      
+      previousVertex = predecessor;
+      // sets previous vertex
    }
 
-   
+   /** 
+    * @return VertexInterface<T>
+    */
    public VertexInterface<T> getPredecessor() {
-      // TODO Auto-generated method stub
-      return null;
+      return previousVertex;
    }
-
    
+   /** 
+    * @return boolean
+    */
    public boolean hasPredecessor() {
       // TODO Auto-generated method stub
       return false;
    }
 
+   /** 
+    * @param newCost
+    */
    public void setCost(double newCost) {
-      // TODO Auto-generated method stub
-      
+      cost = 0;      
    }
 
+   
+   /** 
+    * @return double
+    */
    public double getCost() {
-      // TODO Auto-generated method stub
-      return 0;
+      return cost;
    }
 
 } // end Vertex
