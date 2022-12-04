@@ -126,9 +126,18 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       numberOfEntries++;
       } // end add
 
-   private Node getNodeAt(int numberOfEntries2) {
-      return null;
-   }
+   private Node getNodeAt(int givenPosition)
+      {
+      // Assertion: (firstNode != null) &&
+      // (1 <= givenPosition) && (givenPosition <= numberOfNodes)
+      Node currentNode = firstNode;
+      // Traverse the chain to locate the desired node
+      // (skipped if givenPosition is 1)
+      for (int counter = 1; counter < givenPosition; counter++)
+      currentNode = currentNode.getNextNode();
+      // Assertion: currentNode != null
+      return currentNode;
+      } // end getNodeAt
 
    public void add(int newPosition, T newEntry) {
       if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1))

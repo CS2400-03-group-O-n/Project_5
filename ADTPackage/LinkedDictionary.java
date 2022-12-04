@@ -23,7 +23,7 @@ public class LinkedDictionary <K , V>
 	} // end default constructor
 	
    private void initializeDataFields() {
-      firstNode =null;
+      firstNode = null;
       numberOfEntries=0;
    }
 
