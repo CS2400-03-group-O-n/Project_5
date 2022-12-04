@@ -11,15 +11,14 @@ import java.util.NoSuchElementException;
    @author Timothy M. Henry
    @version 5.0
 */
-public class LinkedDictionary <K extends Comparable <? super K>, V> 
+public class LinkedDictionary <K , V> 
              implements DictionaryInterface<K, V>
 {
 	private Node firstNode; // Reference to first node of chain
 	private int  numberOfEntries; 
 	
 	public LinkedDictionary()
-	{
-      
+	{     
       initializeDataFields();
 	} // end default constructor
 	
@@ -48,7 +47,7 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
          Node currentNode = firstNode;
          Node nodeBefore = null;
          
-         while ( (currentNode != null) && (key.compareTo(currentNode.getKey()) > 0) )
+         while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
          {
             nodeBefore = currentNode;
             currentNode = currentNode.getNextNode();
@@ -96,7 +95,7 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
       Node currentNode = firstNode;
       Node nodeBefore = null;
 
-      while ( (currentNode != null) && (key.compareTo(currentNode.getKey()) > 0) )
+      while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
          {
             nodeBefore = currentNode;
             currentNode = currentNode.getNextNode();
@@ -128,9 +127,28 @@ public class LinkedDictionary <K extends Comparable <? super K>, V>
    /** 
     * @param key
     * @return V
+      Algorithm getValue(key)
+      index = getHashIndex(key)
+      Search the chain that begins at hashTable[index] for a node that contains key
+      if (key is found)
+      return value in found node
+      else
+      return null
     */
    public V getValue(K key) {
-      return getValue(key);
+      V result = null;
+      Node currNode= firstNode;
+      while ( (currNode != null) && (key.equals(currNode.getKey())) )
+      {
+         currNode = currNode.getNextNode();
+      } // end while
+      
+   if ( (currNode != null) && key.equals(currNode.getKey()) )
+      {
+         // Key in dictionary
+         result = currNode.getValue(); // Get old value
+      }
+   return result;
    }
    
    /** 

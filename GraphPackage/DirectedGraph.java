@@ -7,7 +7,7 @@ import ADTPackage.*; // Classes that implement various ADTs
    @author Timothy M. Henry
    @version 5.0
 */
-public class DirectedGraph<T> implements GraphInterface<T>
+public class DirectedGraph<T> implements BasicGraphInterface<T>
 {
 	private int edgeCount;
     private DictionaryInterface<T, VertexInterface<T>> vertices;
