@@ -20,7 +20,7 @@ public class GraphTraversalDriver
     graphTraversal.addVertex("H");
     graphTraversal.addVertex("I");
 
-    graphTraversal.addEdge("A", "B", 5.0);
+    graphTraversal.addEdge("A", "B");
     graphTraversal.addEdge("A", "D",7.0);
     graphTraversal.addEdge("A", "E", 8.0);
     graphTraversal.addEdge("B", "E", 8.0);

@@ -55,6 +55,12 @@ class Vertex<T> implements VertexInterface<T>
 
 
 
+       
+       /** 
+        * @param endVertex
+        * @param edgeWeight
+        * @return boolean
+        */
        /* Implementations of the vertex operations go here.
        . . . */
 
@@ -82,11 +88,15 @@ class Vertex<T> implements VertexInterface<T>
    return result;
    } // end connect
 
+   
+   /** 
+    * @param endVertex
+    * @return boolean
+    */
    public boolean connect(VertexInterface<T> endVertex)
    {
    return connect(endVertex, 0);
    } // end connect
-
 
 
    private class NeighborIterator implements Iterator<VertexInterface<T>>
@@ -122,13 +132,53 @@ class Vertex<T> implements VertexInterface<T>
       } // end remove
    } // end NeighborIterator
 
+   private class WeightIterator implements Iterator<Double>
+   {
+         private Iterator<Edge> edges;
+      
+         private WeightIterator()
+      {
+      edges = edgeList.getIterator();
+      } // end default constructor
+      
+         public boolean hasNext()
+      {
+      return edges.hasNext();
+      } // end hasNext
+      
+      public Double next()
+      {
+      double nextNeighbor = 0;
+      if (edges.hasNext())
+      {
+      Edge edgeToNextNeighbor = edges.next();
+      nextNeighbor = edgeToNextNeighbor.getWeight();
+      }
+      else
+         throw new NoSuchElementException();
+      return nextNeighbor;
+      } // end next
+      
+      public void remove()
+      {
+      throw new UnsupportedOperationException();
+      } // end remove
+   } // end WeightIterator
 
 
+   
+   /** 
+    * @return boolean
+    */
    public boolean hasNeighbor()
    {
    return !edgeList.isEmpty();
    } // end hasNeighbor
 
+   
+   /** 
+    * @return VertexInterface<T>
+    */
    public VertexInterface<T> getUnvisitedNeighbor()
       {
          VertexInterface<T> result = null;
@@ -142,6 +192,11 @@ class Vertex<T> implements VertexInterface<T>
          return result;
       } // end getUnvisitedNeighbor
 
+   
+   /** 
+    * @param other
+    * @return boolean
+    */
    public boolean equals(Object other)
       {
          boolean result;
@@ -156,60 +211,80 @@ class Vertex<T> implements VertexInterface<T>
          return result;
       } // end equals
 
+   
+   /** 
+    * @return T
+    */
    public T getLabel() {
-      // TODO Auto-generated method stub
-      return null;
+      return label;
    }
 
    public void visit() {
-      // TODO Auto-generated method stub
-      
+      visited = true;      
    }
 
    public void unvisit() {
-      // TODO Auto-generated method stub
-      
+      visited = false;      
    }
 
+   /** 
+    * @return boolean
+    */
    public boolean isVisited() {
-      // TODO Auto-generated method stub
-      return false;
+      return visited;
    }
 
+   /** 
+    * @return Iterator<VertexInterface<T>>
+    */
    public Iterator<VertexInterface<T>> getNeighborIterator() {
       return new NeighborIterator();
    } // end getNeighborIterator
 
+   
+   /** 
+    * @return Iterator<Double>
+    */
    public Iterator<Double> getWeightIterator() {
-      // TODO Auto-generated method stub
-      return null;
+      return new WeightIterator();
    }
 
+   /** 
+    * @param predecessor
+    */
    public void setPredecessor(VertexInterface<T> predecessor) {
-      // TODO Auto-generated method stub
-      
+      previousVertex = predecessor;
+      // sets previous vertex
    }
 
-   
+   /** 
+    * @return VertexInterface<T>
+    */
    public VertexInterface<T> getPredecessor() {
-      // TODO Auto-generated method stub
-      return null;
+      return previousVertex;
    }
-
    
+   /** 
+    * @return boolean
+    */
    public boolean hasPredecessor() {
       // TODO Auto-generated method stub
       return false;
    }
 
+   /** 
+    * @param newCost
+    */
    public void setCost(double newCost) {
-      // TODO Auto-generated method stub
-      
+      cost = 0;      
    }
 
+   
+   /** 
+    * @return double
+    */
    public double getCost() {
-      // TODO Auto-generated method stub
-      return 0;
+      return cost;
    }
 
 } // end Vertex
