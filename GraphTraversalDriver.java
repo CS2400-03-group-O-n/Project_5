@@ -1,4 +1,7 @@
 import GraphPackage.*;
+
+import javax.lang.model.util.Elements.Origin;
+
 import ADTPackage.*;
 
 public class GraphTraversalDriver 
@@ -34,11 +37,13 @@ public class GraphTraversalDriver
     graphTraversal.addEdge("C", "B",7.0);
     graphTraversal.addEdge("I", "F",1.0);
 
-    System.out.println("The breadth-first traversal of the graph: \n");
-    QueueInterface<String> breadthGraph = graphTraversal.getBreadthFirstTraversal("A");
-    System.out.println(breadthGraph.dequeue());
+    // System.out.println("The breadth-first traversal of the graph: \n");
+    // QueueInterface<String> breadthGraph = graphTraversal.getBreadthFirstTraversal("A");
+    // System.out.println(breadthGraph.dequeue());
 
     System.out.println("The depth-first traversal of the graph: \n");
+    QueueInterface <String> depthGraph = graphTraversal.getDepthFirstTraversal("A");
+    System.out.println(depthGraph.dequeue());
 
     System.out.println("The breadth-first tree: \n");
 
