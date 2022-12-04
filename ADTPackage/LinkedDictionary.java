@@ -197,31 +197,33 @@ public class LinkedDictionary <K , V>
 
    private class KeyIterator implements Iterator<K>
    {
-      private Node next; // Link to next node
-      private int numberLeft; // Number of entries left in iteration
+      private Node nextNode; // Link to next node
 
       private KeyIterator()
       {
-       next= firstNode;
+       nextNode= firstNode;
       } // end default constructor
 
       public boolean hasNext()
       {
-         return numberLeft > 0;
+         return nextNode != null;
       } // end hasNext
 
       public K next()
       {
-         K result = null;
-      if (hasNext())
+         K result;
+         if (hasNext())
          {
-            result = next.getKey();
-            numberLeft--;  
+            result = nextNode.getKey();
+            nextNode = nextNode.getNextNode(); // Advance iterator
          }
-      else
-            throw new NoSuchElementException();
-      return result;
+         else{
+            throw new NoSuchElementException("Illegal call to next(); " +
+            "iterator is after end of list.");
+         }
+         return result; // Return next entry in iteration
       } // end next
+
       public void remove()
          {
             throw new UnsupportedOperationException();
@@ -231,28 +233,30 @@ public class LinkedDictionary <K , V>
 
    private class ValueIterator implements Iterator<V>
    {
-      private Node next;
+      private Node nextNode;
 
       private ValueIterator(){
-         next = firstNode;
+         nextNode = firstNode;
       }
       public boolean hasNext() {
-         // TODO Auto-generated method stub
-         return false;
-      }
+         return nextNode != null;
+      } // end hasNext
+      
 
       public V next() {
-         V result = null;
+         V result;
          if (hasNext())
          {
-            result = next.getValue();
+            result = nextNode.getValue();
+            nextNode = nextNode.getNextNode(); // Advance iterator
          }
-         else
-         {
-            throw new NoSuchElementException();
+         else{
+            throw new NoSuchElementException("Illegal call to next(); " +
+            "iterator is after end of list.");
          }
-         return result;
-      } // end next
+         return result; // Return next entry in iteration
+         } // end next
+
       public void remove()
       {
          throw new UnsupportedOperationException();

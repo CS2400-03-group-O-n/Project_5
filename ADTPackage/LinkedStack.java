@@ -1,6 +1,5 @@
 package ADTPackage;
 import java.util.EmptyStackException;
-
 	
     public class LinkedStack<T> implements StackInterface<T> {
     
@@ -31,7 +30,6 @@ import java.util.EmptyStackException;
             return top;
         }
     
-        
         /** 
          * @return T
          */

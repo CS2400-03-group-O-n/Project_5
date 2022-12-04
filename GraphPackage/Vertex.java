@@ -52,20 +52,16 @@ class Vertex<T> implements VertexInterface<T>
             return weight; 
          } // end getWeight
       } // end Edge
-
-
-
        
-       /** 
-        * @param endVertex
-        * @param edgeWeight
-        * @return boolean
-        */
+       
        /* Implementations of the vertex operations go here.
        . . . */
 
-
-
+         /** 
+          * @param endVertex
+         * @param edgeWeight
+         * @return boolean
+         */
    public boolean connect(VertexInterface<T> endVertex, double edgeWeight)
    {
    boolean result = false;
@@ -164,7 +160,6 @@ class Vertex<T> implements VertexInterface<T>
       throw new UnsupportedOperationException();
       } // end remove
    } // end WeightIterator
-
 
    
    /** 
@@ -265,10 +260,16 @@ class Vertex<T> implements VertexInterface<T>
    }
    
    /** 
-    * @return boolean
+   @return boolean
+   Sees whether a predecessor was recorded for this vertex.
+    @return True if a predecessor was recorded. 
     */
    public boolean hasPredecessor() {
-      // TODO Auto-generated method stub
+      if(previousVertex.isVisited())
+      {
+      return true;
+      }
+      else 
       return false;
    }
 
@@ -279,7 +280,6 @@ class Vertex<T> implements VertexInterface<T>
       cost = 0;      
    }
 
-   
    /** 
     * @return double
     */
