@@ -57,7 +57,7 @@ public class LinkedDictionary <K, V>
          {
             // Key in dictionary; replace corresponding value
             result = currentNode.getValue(); // Get old value
-            currentNode.setValue(value);     // Replace value
+           currentNode.setValue(value);     // Replace value
          }
          else // Key not in dictionary; add new node in proper order
          {
@@ -82,12 +82,10 @@ public class LinkedDictionary <K, V>
 		return result;
 	} // end add
    
-   
    /** 
     * @param key
     * @return V
-    algorithm: 
-            public T remove()
+          algorithm:  public T remove()
          {
          T result = null;
          if (firstNode != null)
@@ -98,39 +96,50 @@ public class LinkedDictionary <K, V>
          } // end if
          return result;
          } // end remove
+
+         Algorithm remove(key)
+         // Removes an entry from the dictionary, given its search key, and returns its value.
+         // If no such entry exists in the dictionary, returns null.
+         result = null
+         Search the array for an entry containing key
+         if (an entry containing key is found in the array)
+         {
+         result = value currently associated with key
+         Replace the entry with the last entry in the array
+         Set array element containing last entry to null
+         Decrement the size of the dictionary
+         }
+         // Else result is null
+         return result
     */
    public V remove(K key) {
       V result = null;
 
       // Search chain until you either find a node containing key
       // or locate where it should be
-      if ( (!isEmpty()) )
-         {
+      
              Node currentNode = firstNode;
              Node nodeBefore = null;
             // Key in dictionary; remove corresponding value
 
-           while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
+         while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
          {
             nodeBefore = currentNode;
             currentNode = currentNode.getNextNode();
          } // end while
             // Assertion: key and value are not null
+      
          if(currentNode != null )
             {
-            Node newNode = currentNode.getNextNode();  // Create new node
-            
-            if (nodeBefore == null)
-            {                                    
-               firstNode = newNode;
-            }
-            else                                 
-            {
-               nodeBefore.setNextNode(newNode); // currentNode is after new node
+               result = currentNode.getValue();
+               currentNode = currentNode.getNextNode();
+               nodeBefore.setNextNode(currentNode);  // 
+               numberOfEntries--;               // decrease length for both cases
             } // end if
-            numberOfEntries--;               // decrease length for both cases
+         else{
+         return result=null; 
          }
-      }
+
         return result;
    }  // end remove
 
@@ -160,7 +169,7 @@ public class LinkedDictionary <K, V>
        @return  True if key is associated with an entry in the dictionary. */
    public boolean contains(K key) {
 		return getValue(key) != null;
-   }
+   } // end contains
    
    /** 
     * @return Iterator<K>
@@ -180,10 +189,7 @@ public class LinkedDictionary <K, V>
     * @return boolean
     */
    public boolean isEmpty() {
-      if ( getSize() == 0)
-      return true;
-      else 
-      return false;
+      return isEmpty();
    }
    
    /** 
@@ -198,6 +204,9 @@ public class LinkedDictionary <K, V>
       }
 
    
+
+
+
    /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
    . . . */
 
