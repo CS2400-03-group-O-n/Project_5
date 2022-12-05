@@ -143,7 +143,7 @@ public class LinkedDictionary <K , V>
          currNode = currNode.getNextNode();
       } // end while
       
-   if ( (currNode != null) && key.equals(currNode.getKey()) )
+   if ( (currNode != null) )
       {
          // Key in dictionary
          result = currNode.getValue(); // Get old value
@@ -152,11 +152,12 @@ public class LinkedDictionary <K , V>
    }
    
    /** 
+    * checks for a specific entry in the dictionary
     * @param key
     * @return boolean
     */
    public boolean contains(K key) {
-      return false;
+      return getValue(key) != null;
    }
    
    /** 
@@ -177,7 +178,7 @@ public class LinkedDictionary <K , V>
     * @return boolean
     */
    public boolean isEmpty() {
-      return false;
+      return isEmpty();
    }
    
    /** 
@@ -188,7 +189,7 @@ public class LinkedDictionary <K , V>
    }
 
    public void clear() {
-      numberOfEntries =0;       
+      initializeDataFields();       
    }
 
    
