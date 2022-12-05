@@ -19,11 +19,21 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
     }
    
        // < Implementations of the graph operations go here. > ...
-
+        
+        protected void resetVertices()
+        {
+            Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
+            while (vertexIterator.hasNext())
+            {
+                VertexInterface<T> nextVertex = vertexIterator.next();
+                nextVertex.unvisit();
+                nextVertex.setCost(0);
+                nextVertex.setPredecessor(null);
+            } // end while
+        } // end resetVertices
         public boolean addVertex(T vertexLabel)
         {
-        VertexInterface<T> addOutcome =
-        vertices.add(vertexLabel, new Vertex<>(vertexLabel));
+        VertexInterface<T> addOutcome = vertices.add(vertexLabel, new Vertex<>(vertexLabel));
         return addOutcome == null; // Was addition to dictionary successful?
         } // end addVertex
 
@@ -34,9 +44,9 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
             VertexInterface<T> beginVertex = vertices.getValue(begin);
             VertexInterface<T> endVertex = vertices.getValue(end);
             if ( (beginVertex != null) && (endVertex != null) )
-            result = beginVertex.connect(endVertex, edgeWeight);
+                result = beginVertex.connect(endVertex, edgeWeight);
             if (result)
-            edgeCount++;
+                edgeCount++;
             return result;
         } // end addEdge
         
@@ -53,8 +63,7 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
             VertexInterface<T> endVertex = vertices.getValue(end);
             if ( (beginVertex != null) && (endVertex != null) )
             {
-                Iterator<VertexInterface<T>> neighbors =
-                beginVertex.getNeighborIterator();
+                Iterator<VertexInterface<T>> neighbors = beginVertex.getNeighborIterator();
                 while (!found && neighbors.hasNext())
                 {
                     VertexInterface<T> nextNeighbor = neighbors.next();
@@ -70,12 +79,6 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
         {
             return vertices.isEmpty();
         } // end isEmpty
-       
-        public void clear()
-        {
-            vertices.clear();
-            edgeCount = 0;
-        } // end clear
       
         public int getNumberOfVertices()
         {
@@ -87,19 +90,11 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
             return edgeCount;
         } // end getNumberOfEdges
 
-
-        protected void resetVertices()
+        public void clear() 
         {
-            Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
-            while (vertexIterator.hasNext())
-            {
-                VertexInterface<T> nextVertex = vertexIterator.next();
-                nextVertex.unvisit();
-                nextVertex.setCost(0);
-                nextVertex.setPredecessor(null);
-            } // end while
-        } // end resetVertices
-
+            vertices.clear();
+            edgeCount = 0;
+        } // end clear
    
     // To do Breadth First Traversal
     public QueueInterface<T> getBreadthFirstTraversal (T origin)
