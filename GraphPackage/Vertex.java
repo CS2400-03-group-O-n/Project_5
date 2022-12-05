@@ -268,7 +268,10 @@ class Vertex<T> implements VertexInterface<T>
     * @return boolean
     */
    public boolean hasPredecessor() {
-      // TODO Auto-generated method stub
+      if(previousVertex.isVisited())
+      {
+         return true;
+      } else
       return false;
    }
 
