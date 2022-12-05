@@ -43,8 +43,10 @@ public class GraphTraversalDriver
 
     System.out.println("The depth-first traversal of the graph: \n");
     System.out.println(graphTraversal.addEdge("D", "G"));
-   // QueueInterface <String> depthGraph = graphTraversal.getDepthFirstTraversal("A");
-    //System.out.println(graphTraversal.getNumberOfVertices());
+    StackInterface<String> path = graphTraversal.getTopologicalOrder();
+    System.out.println(graphTraversal.getShortestPath("A", "I", path));
+    // QueueInterface <String> depthGraph = graphTraversal.getDepthFirstTraversal("A");
+    // System.out.println(graphTraversal.getNumberOfVertices());
     System.out.println(graphTraversal.getNumberOfEdges());
     // System.out.println(depthGraph.dequeue());
 
