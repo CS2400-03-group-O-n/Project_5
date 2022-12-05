@@ -126,9 +126,15 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       numberOfEntries++;
       } // end add
 
-   private Node getNodeAt(int numberOfEntries2) {
-      return null;
-   }
+   private Node getNodeAt(int givenPosition) 
+   {
+      assert (firstNode != null) && (1 <= givenPosition) && (givenPosition <= numberOfEntries);
+      Node currentNode = firstNode;
+      for (int counter = 1; counter < givenPosition; counter++)
+         currentNode = currentNode.getNextNode();
+      assert currentNode != null;
+      return currentNode;
+   } // end getNodeAt
 
    public void add(int newPosition, T newEntry) {
       if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1))
@@ -193,8 +199,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       return originalEntry;
       }
       else
-      throw new IndexOutOfBoundsException(
-      "Illegal position given to replace operation.");
+      throw new IndexOutOfBoundsException("Illegal position given to replace operation.");
       } // end replace
 
    public T getEntry(int givenPosition) {

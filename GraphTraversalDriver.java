@@ -42,12 +42,12 @@ public class GraphTraversalDriver
     System.out.println(breadthGraph.dequeue());
 
     System.out.println("The depth-first traversal of the graph: \n");
-    System.out.println(graphTraversal.addEdge("D", "G"));
-    // QueueInterface <String> depthGraph = graphTraversal.getDepthFirstTraversal("A");
-    // System.out.println(graphTraversal.getNumberOfVertices());
-    System.out.println(graphTraversal.getNumberOfEdges());
-    // System.out.println(depthGraph.dequeue());
+    QueueInterface <String> depthGraph = graphTraversal.getDepthFirstTraversal("A");
+    System.out.println(depthGraph.dequeue());
 
+    // System.out.println(graphTraversal.getNumberOfEdges());
+    // System.out.println(graphTraversal.getNumberOfVertices());
+    // System.out.println(graphTraversal.hasEdge("A", "E"));
     System.out.println("The breadth-first tree: \n");
 
     System.out.println("The depth-first tree: ");
