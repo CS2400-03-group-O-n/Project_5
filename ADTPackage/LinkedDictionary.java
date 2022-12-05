@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
    @author Timothy M. Henry
    @version 5.0
 */
-public class LinkedDictionary <K , V> 
+public class LinkedDictionary <K, V> 
              implements DictionaryInterface<K, V>
 {
 	private Node firstNode; // Reference to first node of chain
@@ -23,7 +23,7 @@ public class LinkedDictionary <K , V>
 	} // end default constructor
 	
    private void initializeDataFields() {
-      firstNode =null;
+      firstNode = null;
       numberOfEntries=0;
    }
 
@@ -86,29 +86,38 @@ public class LinkedDictionary <K , V>
    /** 
     * @param key
     * @return V
+    algorithm: 
+            public T remove()
+         {
+         T result = null;
+         if (firstNode != null)
+         {
+         result = firstNode.data;
+         firstNode = firstNode.next; // Remove first node from chain
+         numberOfEntries--;
+         } // end if
+         return result;
+         } // end remove
     */
    public V remove(K key) {
       V result = null;
 
       // Search chain until you either find a node containing key
       // or locate where it should be
-      Node currentNode = firstNode;
-      Node nodeBefore = null;
+      if ( (!isEmpty()) )
+         {
+             Node currentNode = firstNode;
+             Node nodeBefore = null;
+            // Key in dictionary; remove corresponding value
 
-      while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
+           while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
          {
             nodeBefore = currentNode;
             currentNode = currentNode.getNextNode();
          } // end while
-         
-      if ( (currentNode != null) && key.equals(currentNode.getKey()) )
-         {
-            // Key in dictionary; remove corresponding value
-            result = currentNode.getValue(); // Get old value
-            currentNode= currentNode.getNextNode();     // Replace value w/ next
-         }
-      
             // Assertion: key and value are not null
+         if(currentNode != null )
+            {
             Node newNode = currentNode.getNextNode();  // Create new node
             
             if (nodeBefore == null)
@@ -120,7 +129,8 @@ public class LinkedDictionary <K , V>
                nodeBefore.setNextNode(newNode); // currentNode is after new node
             } // end if
             numberOfEntries--;               // decrease length for both cases
-
+         }
+      }
         return result;
    }  // end remove
 
@@ -128,12 +138,6 @@ public class LinkedDictionary <K , V>
     * @param key
     * @return V
       Algorithm getValue(key)
-      index = getHashIndex(key)
-      Search the chain that begins at hashTable[index] for a node that contains key
-      if (key is found)
-      return value in found node
-      else
-      return null
     */
    public V getValue(K key) {
       V result = null;
@@ -143,7 +147,7 @@ public class LinkedDictionary <K , V>
          currNode = currNode.getNextNode();
       } // end while
       
-   if ( (currNode != null) && key.equals(currNode.getKey()) )
+     if ( (currNode != null) )
       {
          // Key in dictionary
          result = currNode.getValue(); // Get old value
@@ -151,12 +155,11 @@ public class LinkedDictionary <K , V>
    return result;
    }
    
-   /** 
-    * @param key
-    * @return boolean
-    */
+   /** Sees whether a specific entry is in this dictionary.
+       @param key  An object search key of the desired entry.
+       @return  True if key is associated with an entry in the dictionary. */
    public boolean contains(K key) {
-      return false;
+		return getValue(key) != null;
    }
    
    /** 
@@ -177,6 +180,9 @@ public class LinkedDictionary <K , V>
     * @return boolean
     */
    public boolean isEmpty() {
+      if ( getSize() == 0)
+      return true;
+      else 
       return false;
    }
    
@@ -188,8 +194,8 @@ public class LinkedDictionary <K , V>
    }
 
    public void clear() {
-      numberOfEntries =0;       
-   }
+      initializeDataFields();
+      }
 
    
    /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
@@ -197,31 +203,33 @@ public class LinkedDictionary <K , V>
 
    private class KeyIterator implements Iterator<K>
    {
-      private Node next; // Link to next node
-      private int numberLeft; // Number of entries left in iteration
+      private Node nextNode; // Link to next node
 
       private KeyIterator()
       {
-       next= firstNode;
+       nextNode= firstNode;
       } // end default constructor
 
       public boolean hasNext()
       {
-         return numberLeft > 0;
+         return nextNode != null;
       } // end hasNext
 
       public K next()
       {
-         K result = null;
-      if (hasNext())
+         K result;
+         if (hasNext())
          {
-            result = next.getKey();
-            numberLeft--;  
+            result = nextNode.getKey();
+            nextNode = nextNode.getNextNode(); // Advance iterator
          }
-      else
-            throw new NoSuchElementException();
-      return result;
+         else{
+            throw new NoSuchElementException("Illegal call to next(); " +
+            "iterator is after end of list.");
+         }
+         return result; // Return next entry in iteration
       } // end next
+
       public void remove()
          {
             throw new UnsupportedOperationException();
@@ -231,28 +239,30 @@ public class LinkedDictionary <K , V>
 
    private class ValueIterator implements Iterator<V>
    {
-      private Node next;
+      private Node nextNode;
 
       private ValueIterator(){
-         next = firstNode;
+         nextNode = firstNode;
       }
       public boolean hasNext() {
-         // TODO Auto-generated method stub
-         return false;
-      }
+         return nextNode != null;
+      } // end hasNext
+      
 
       public V next() {
-         V result = null;
+         V result;
          if (hasNext())
          {
-            result = next.getValue();
+            result = nextNode.getValue();
+            nextNode = nextNode.getNextNode(); // Advance iterator
          }
-         else
-         {
-            throw new NoSuchElementException();
+         else{
+            throw new NoSuchElementException("Illegal call to next(); " +
+            "iterator is after end of list.");
          }
-         return result;
-      } // end next
+         return result; // Return next entry in iteration
+         } // end next
+
       public void remove()
       {
          throw new UnsupportedOperationException();
