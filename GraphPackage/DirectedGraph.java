@@ -22,17 +22,6 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
    
        // < Implementations of the graph operations go here. > ...
         
-        protected void resetVertices()
-        {
-            Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
-            while (vertexIterator.hasNext())
-            {
-                VertexInterface<T> nextVertex = vertexIterator.next();
-                nextVertex.unvisit();
-                nextVertex.setCost(0);
-                nextVertex.setPredecessor(null);
-            } // end while
-        } // end resetVertices
         public boolean addVertex(T vertexLabel)
         {
         VertexInterface<T> addOutcome = vertices.add(vertexLabel, new Vertex<>(vertexLabel));
