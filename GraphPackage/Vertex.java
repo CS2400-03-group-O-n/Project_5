@@ -1,6 +1,8 @@
 package GraphPackage;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+
 import ADTPackage.*; // Classes that implement various ADTs
 /**
  A class of vertices for a graph.
@@ -83,10 +85,8 @@ class Vertex<T> implements VertexInterface<T>
     @return True if a predecessor was recorded. 
     */
    public boolean hasPredecessor() {
-      if(previousVertex.isVisited())
-      {
+      if (previousVertex != null)
       return true;
-      }
       else 
       return false;
    }
@@ -115,24 +115,24 @@ class Vertex<T> implements VertexInterface<T>
          */
    public boolean connect(VertexInterface<T> endVertex, double edgeWeight)
    {
-   boolean result = false;
-   if (!this.equals(endVertex))
-   { // Vertices are distinct
-   Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
-   boolean duplicateEdge = false;
-   while (!duplicateEdge && neighbors.hasNext())
-   {
-   VertexInterface<T> nextNeighbor = neighbors.next();
-   if (endVertex.equals(nextNeighbor))
-   duplicateEdge = true;
-   } // end while
-   if (!duplicateEdge)
-   {
-   edgeList.add(new Edge(endVertex, edgeWeight));
-   result = true;
-   } // end if
-   } // end if
-   return result;
+      boolean result = false;
+      if (!this.equals(endVertex))
+         { // Vertices are distinct
+         Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
+         boolean duplicateEdge = false;
+         while (!duplicateEdge && neighbors.hasNext())
+            {
+            VertexInterface<T> nextNeighbor = neighbors.next();
+            if (endVertex.equals(nextNeighbor))
+            duplicateEdge = true;
+            } // end while
+         if (!duplicateEdge)
+            {
+            edgeList.add(new Edge(endVertex, edgeWeight));
+            result = true;
+            } // end if
+      } // end if
+      return result;
    } // end connect
 
    
@@ -150,7 +150,7 @@ class Vertex<T> implements VertexInterface<T>
    {
          private Iterator<Edge> edges;
       
-         private NeighborIterator()
+      private NeighborIterator()
       {
       edges = edgeList.getIterator();
       } // end default constructor
@@ -163,14 +163,14 @@ class Vertex<T> implements VertexInterface<T>
       public VertexInterface<T> next()
       {
       VertexInterface<T> nextNeighbor = null;
-      if (edges.hasNext())
-      {
-      Edge edgeToNextNeighbor = edges.next();
-      nextNeighbor = edgeToNextNeighbor.getEndVertex();
-      }
-      else
-      throw new NoSuchElementException();
-      return nextNeighbor;
+         if (edges.hasNext())
+         {
+            Edge edgeToNextNeighbor = edges.next();
+            nextNeighbor = edgeToNextNeighbor.getEndVertex();
+         }
+         else
+            throw new NoSuchElementException();
+         return nextNeighbor;
       } // end next
       
       public void remove()
@@ -195,15 +195,15 @@ class Vertex<T> implements VertexInterface<T>
       
       public Double next()
       {
-      double nextNeighbor = 0;
-      if (edges.hasNext())
-      {
-      Edge edgeToNextNeighbor = edges.next();
-      nextNeighbor = edgeToNextNeighbor.getWeight();
-      }
-      else
-         throw new NoSuchElementException();
-      return nextNeighbor;
+      Double nextNeighbor = null;
+         if (edges.hasNext())
+         {
+            Edge edgeToNextNeighbor = edges.next();
+            nextNeighbor = edgeToNextNeighbor.getWeight();
+         }
+         else
+            throw new NoSuchElementException();
+         return nextNeighbor;
       } // end next
       
       public void remove()

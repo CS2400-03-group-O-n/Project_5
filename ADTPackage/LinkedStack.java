@@ -9,35 +9,32 @@ import java.util.EmptyStackException;
             topNode = null;
         }
     
-        
         /** 
          * @param newEntry
          */
         public void push(T newEntry) {
-            topNode = new Node(newEntry, topNode);
-        }
-    
+            Node newNode = new Node(newEntry, topNode);
+            topNode = newNode;
+            } // end push
         
         /** 
          * @return T
          */
         public T pop() {
-            if (isEmpty())
-                throw new EmptyStackException();
-    
-            T top = topNode.data;
-            topNode = topNode.next;
+            T top = peek(); // Might throw EmptyStackException
+            // Assertion: topNode != null
+            topNode = topNode.getNextNode();
             return top;
-        }
-    
+            } // end pop
         /** 
          * @return T
          */
         public T peek() {
-            if (isEmpty())
+                if (isEmpty())
                 throw new EmptyStackException();
-            return topNode.data;
-        }
+                else
+                return topNode.getData();
+                } // end peek
     
         
         /** 
@@ -63,5 +60,18 @@ import java.util.EmptyStackException;
                 data = dataPortion;
                 next = nextNode;
             }
-        }
-    }
+            private T getData()
+            {
+                return data;
+            } // end getData
+          
+            private Node getNextNode()
+            {
+                return next;
+            } // end getNextNode
+            
+           
+        } // end Node
+
+ }
+

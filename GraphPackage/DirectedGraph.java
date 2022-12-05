@@ -21,18 +21,6 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
     }
    
        // < Implementations of the graph operations go here. > ...
-        
-       protected void resetVertices()
-        {
-            Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
-            while (vertexIterator.hasNext())
-            {
-                VertexInterface<T> nextVertex = vertexIterator.next();
-                nextVertex.unvisit();
-                nextVertex.setCost(0);
-                nextVertex.setPredecessor(null);
-            } // end while
-        } // end resetVertices
 
         public boolean addVertex(T vertexLabel)
         {
@@ -98,13 +86,25 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
             edgeCount = 0;
         } // end clear
 
-   
+   protected void resetVertices()
+        {
+            Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
+            while (vertexIterator.hasNext())
+            {
+                VertexInterface<T> nextVertex = vertexIterator.next();
+                nextVertex.unvisit();
+                nextVertex.setCost(0);
+                nextVertex.setPredecessor(null);
+            } // end while
+        } // end resetVertices
+
+
     // To do Breadth First Traversal
     public QueueInterface<T> getBreadthFirstTraversal (T origin)
     {
        resetVertices();
-       QueueInterface<T> traversalOrder = new LinkedQueue<T>();
-       QueueInterface<VertexInterface<T>> vertexQueue = new LinkedQueue<>();
+      QueueInterface<T> traversalOrder = new LinkedQueue<T>();
+      QueueInterface<VertexInterface<T>> vertexQueue = new LinkedQueue<>();
      
        VertexInterface<T> originVertex = vertices.getValue(origin);
        originVertex.visit();

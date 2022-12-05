@@ -169,11 +169,13 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       if (numberOfEntries == 0) // Or getLength() == 0
          {
          // Assertion: firstNode == null
+         assert firstNode ==null;
          result = true;
          }
       else
          {
          // Assertion: firstNode != null
+         assert firstNode != null;
          result = false;
          } // end if
       return result;

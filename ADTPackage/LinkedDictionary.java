@@ -86,29 +86,38 @@ public class LinkedDictionary <K, V>
    /** 
     * @param key
     * @return V
+    algorithm: 
+            public T remove()
+         {
+         T result = null;
+         if (firstNode != null)
+         {
+         result = firstNode.data;
+         firstNode = firstNode.next; // Remove first node from chain
+         numberOfEntries--;
+         } // end if
+         return result;
+         } // end remove
     */
    public V remove(K key) {
       V result = null;
 
       // Search chain until you either find a node containing key
       // or locate where it should be
-      Node currentNode = firstNode;
-      Node nodeBefore = null;
+      if ( (!isEmpty()) )
+         {
+             Node currentNode = firstNode;
+             Node nodeBefore = null;
+            // Key in dictionary; remove corresponding value
 
-      while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
+           while ( (currentNode != null) && (key.equals(currentNode.getKey())) )
          {
             nodeBefore = currentNode;
             currentNode = currentNode.getNextNode();
          } // end while
-         
-      if ( (currentNode != null) && key.equals(currentNode.getKey()) )
-         {
-            // Key in dictionary; remove corresponding value
-            result = currentNode.getValue(); // Get old value
-            currentNode= currentNode.getNextNode();     // Replace value w/ next
-         }
-      
             // Assertion: key and value are not null
+         if(currentNode != null )
+            {
             Node newNode = currentNode.getNextNode();  // Create new node
             
             if (nodeBefore == null)
@@ -120,7 +129,8 @@ public class LinkedDictionary <K, V>
                nodeBefore.setNextNode(newNode); // currentNode is after new node
             } // end if
             numberOfEntries--;               // decrease length for both cases
-
+         }
+      }
         return result;
    }  // end remove
 
@@ -137,7 +147,7 @@ public class LinkedDictionary <K, V>
          currNode = currNode.getNextNode();
       } // end while
       
-   if ( (currNode != null) )
+     if ( (currNode != null) )
       {
          // Key in dictionary
          result = currNode.getValue(); // Get old value
@@ -170,7 +180,10 @@ public class LinkedDictionary <K, V>
     * @return boolean
     */
    public boolean isEmpty() {
-      return isEmpty();
+      if ( getSize() == 0)
+      return true;
+      else 
+      return false;
    }
    
    /** 

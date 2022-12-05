@@ -74,7 +74,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 
 	public T dequeue() {
 		T front = getFront();  // Might throw EmptyQueueException
-                              // Assertion: firstNode != null
+        assert firstNode != null;  // Assertion firstNode != null
       firstNode.setData(null);
       firstNode = firstNode.getNextNode();
       
