@@ -30,90 +30,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
    } // end initializeDataFields
 
 
-   public Iterator<T> iterator()
-   {
-	   return new IteratorForLinkedList();
-   } // end iterator
-
-	public Iterator<T> getIterator()
-	{
-	   return iterator();
-	} // end getIterator
-   
-	private class IteratorForLinkedList implements Iterator<T>
-	{
-      private Node nextNode;
-
-		private IteratorForLinkedList()
-		{
-			nextNode = firstNode;
-		} // end default constructor
-
-      public boolean hasNext() {
-         return nextNode != null;
-      } // end hasNext
-
-      public T next() {
-         T result;
-         if (hasNext())
-         {
-         result = nextNode.getData();
-         nextNode = nextNode.getNextNode(); // Advance iterator
-         }
-         else
-         throw new NoSuchElementException("Illegal call to next(); " +
-         "iterator is after end of list.");
-         return result; // Return next entry in iteration
-         } // end next
-
-      public void remove()
-         {
-         throw new UnsupportedOperationException("remove() is not supported " +
-         "by this iterator");
-         } // end remove
-		
-      // Implementations of the methods in the interface Iterator go here.
-
-	} // end IteratorForLinkedList
-	
-	private class Node
-	{
-      private T    data; // Entry in list
-      private Node next; // Link to next node
-      
-      private Node(T dataPortion)
-      {
-         data = dataPortion;
-         next = null;
-      } // end constructor
-      
-      private Node(T dataPortion, Node nextNode)
-      {
-         data = dataPortion;
-         next = nextNode;
-      } // end constructor
-      
-      private T getData()
-      {
-         return data;
-      } // end getData
-      
-      private void setData(T newData)
-      {
-         data = newData;
-      } // end setData
-      
-      private Node getNextNode()
-      {
-         return next;
-      } // end getNextNode
-      
-      private void setNextNode(Node nextNode)
-      {
-         next = nextNode;
-      } // end setNextNode
-	} // end Node
-
+ 
    public void add(T newEntry) {
       Node newNode = new Node(newEntry);
       if (isEmpty())
@@ -259,6 +176,91 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
          } // end if
       return result;
       } // end isEmpty
+
+   public Iterator<T> iterator()
+   {
+       return new IteratorForLinkedList();
+   } // end iterator
+   
+   public Iterator<T> getIterator()
+   {
+      return iterator();
+   } // end getIterator
+      
+   private class IteratorForLinkedList implements Iterator<T>
+      {
+      private Node nextNode;
+   
+      private IteratorForLinkedList()
+      {
+         nextNode = firstNode;
+      } // end default constructor
+   
+      public boolean hasNext() {
+         return nextNode != null;
+      } // end hasNext
+   
+      public T next() {
+         T result;
+         if (hasNext())
+         {
+         result = nextNode.getData();
+         nextNode = nextNode.getNextNode(); // Advance iterator
+         }
+         else
+         throw new NoSuchElementException("Illegal call to next(); " +
+         "iterator is after end of list.");
+         return result; // Return next entry in iteration
+         } // end next
+   
+      public void remove()
+         {
+         throw new UnsupportedOperationException("remove() is not supported " +
+         "by this iterator");
+         } // end remove
+         
+      // Implementations of the methods in the interface Iterator go here.
+   
+    } // end IteratorForLinkedList
+      
+   private class Node
+   {
+      private T    data; // Entry in list
+      private Node next; // Link to next node
+         
+      private Node(T dataPortion)
+      {
+         data = dataPortion;
+         next = null;
+      } // end constructor
+         
+      private Node(T dataPortion, Node nextNode)
+      {
+         data = dataPortion;
+         next = nextNode;
+        } // end constructor
+         
+      private T getData()
+      {
+         return data;
+      } // end getData
+         
+      private void setData(T newData)
+      {
+         data = newData;
+      } // end setData
+         
+      private Node getNextNode()
+      {
+         return next;
+      } // end getNextNode
+        
+      private void setNextNode(Node nextNode)
+      {
+         next = nextNode;
+      } // end setNextNode
+   } // end Node
+   
 } // end LinkedListWithIterator
 
 
