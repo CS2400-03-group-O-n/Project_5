@@ -25,34 +25,85 @@ class Vertex<T> implements VertexInterface<T>
       cost = 0;
    } // end constructor
 
-      protected class Edge
-      {
-         private VertexInterface<T> vertex; // Vertex at end of edge
-         private double weight;
-         
-         protected Edge(VertexInterface<T> endVertex, double edgeWeight)
-         {
-            vertex = endVertex;
-            weight = edgeWeight;
-         } // end constructor
-         
-         protected Edge(VertexInterface<T> endVertex)
-         {
-            vertex = endVertex;
-            weight = 0;
-         } // end constructor
+    /** 
+    * @return T
+    */
+   public T getLabel() {
+      return label;
+   }
 
-         protected VertexInterface<T> getEndVertex()
-         {
-            return vertex;
-         } // end getEndVertex
-         
-         protected double getWeight()
-         {
-            return weight; 
-         } // end getWeight
-      } // end Edge
-       
+   public void visit() {
+      visited = true;      
+   }
+
+   public void unvisit() {
+      visited = false;      
+   }
+
+   /** 
+    * @return boolean
+    */
+   public boolean isVisited() {
+      return visited;
+   }
+
+   /** 
+    * @return Iterator<VertexInterface<T>>
+    */
+   public Iterator<VertexInterface<T>> getNeighborIterator() {
+      return new NeighborIterator();
+   } // end getNeighborIterator
+
+   
+   /** 
+    * @return Iterator<Double>
+    */
+   public Iterator<Double> getWeightIterator() {
+      return new WeightIterator();
+   }
+
+   /** 
+    * @param predecessor
+    */
+   public void setPredecessor(VertexInterface<T> predecessor) {
+      previousVertex = predecessor;
+      // sets previous vertex
+   }
+
+   /** 
+    * @return VertexInterface<T>
+    */
+   public VertexInterface<T> getPredecessor() {
+      return previousVertex;
+   }
+   
+   /** 
+   @return boolean
+   Sees whether a predecessor was recorded for this vertex.
+    @return True if a predecessor was recorded. 
+    */
+   public boolean hasPredecessor() {
+      if(previousVertex.isVisited())
+      {
+      return true;
+      }
+      else 
+      return false;
+   }
+
+   /** 
+    * @param newCost
+    */
+   public void setCost(double newCost) {
+      cost = 0;      
+   }
+
+   /** 
+    * @return double
+    */
+   public double getCost() {
+      return cost;
+   }
        
        /* Implementations of the vertex operations go here.
        . . . */
@@ -206,85 +257,33 @@ class Vertex<T> implements VertexInterface<T>
          return result;
       } // end equals
 
-   
-   /** 
-    * @return T
-    */
-   public T getLabel() {
-      return label;
-   }
-
-   public void visit() {
-      visited = true;      
-   }
-
-   public void unvisit() {
-      visited = false;      
-   }
-
-   /** 
-    * @return boolean
-    */
-   public boolean isVisited() {
-      return visited;
-   }
-
-   /** 
-    * @return Iterator<VertexInterface<T>>
-    */
-   public Iterator<VertexInterface<T>> getNeighborIterator() {
-      return new NeighborIterator();
-   } // end getNeighborIterator
-
-   
-   /** 
-    * @return Iterator<Double>
-    */
-   public Iterator<Double> getWeightIterator() {
-      return new WeightIterator();
-   }
-
-   /** 
-    * @param predecessor
-    */
-   public void setPredecessor(VertexInterface<T> predecessor) {
-      previousVertex = predecessor;
-      // sets previous vertex
-   }
-
-   /** 
-    * @return VertexInterface<T>
-    */
-   public VertexInterface<T> getPredecessor() {
-      return previousVertex;
-   }
-   
-   /** 
-   @return boolean
-   Sees whether a predecessor was recorded for this vertex.
-    @return True if a predecessor was recorded. 
-    */
-   public boolean hasPredecessor() {
-      if(previousVertex.isVisited())
+protected class Edge
       {
-      return true;
-      }
-      else 
-      return false;
-   }
+         private VertexInterface<T> vertex; // Vertex at end of edge
+         private double weight;
+         
+         protected Edge(VertexInterface<T> endVertex, double edgeWeight)
+         {
+            vertex = endVertex;
+            weight = edgeWeight;
+         } // end constructor
+         
+         protected Edge(VertexInterface<T> endVertex)
+         {
+            vertex = endVertex;
+            weight = 0;
+         } // end constructor
 
-   /** 
-    * @param newCost
-    */
-   public void setCost(double newCost) {
-      cost = 0;      
-   }
-
-   /** 
-    * @return double
-    */
-   public double getCost() {
-      return cost;
-   }
-
+         protected VertexInterface<T> getEndVertex()
+         {
+            return vertex;
+         } // end getEndVertex
+         
+         protected double getWeight()
+         {
+            return weight; 
+         } // end getWeight
+      } // end Edge
+       
+  
 } // end Vertex

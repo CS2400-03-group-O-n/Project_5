@@ -8,9 +8,8 @@ public class GraphTraversalDriver
     System.out.println("\nThe graph: {V, E} where\nV = { A, B, C, D, E, F, G, H, I }");
     System.out.println("E = { (A,B), (A, D), (A, E), (B, E), (D, G), (E, F), (E, H), (G, H), (F, C), (F, H), (H, I), (C, B), (I, F) }\n");
 
-    BasicGraphInterface<String> BgraphTraversal = new DirectedGraph<String> ();
-  //  BasicGraphInterface<String> DepthTraversal = new DirectedGraph<>();
-    
+    DirectedGraph<String> BgraphTraversal = new DirectedGraph<>();
+  
     BgraphTraversal.addVertex("A");
     BgraphTraversal.addVertex("B");
     BgraphTraversal.addVertex("C");
@@ -35,9 +34,14 @@ public class GraphTraversalDriver
     BgraphTraversal.addEdge("C", "B");
     BgraphTraversal.addEdge("I", "F");
 
+
     System.out.println("The breadth-first traversal of the graph: \n");
-    QueueInterface<String> breadthGraph = BgraphTraversal.getBreadthFirstTraversal("A");
-    System.out.println(breadthGraph.dequeue());
+    QueueInterface<String> bfs = BgraphTraversal.getBreadthFirstTraversal("A");
+    while (!bfs.isEmpty())
+    {
+      System.out.print(bfs.dequeue() + " ");
+    }
+    System.out.println(); 
 
     System.out.println("The depth-first traversal of the graph: \n");
     

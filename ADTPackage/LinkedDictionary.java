@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
    @author Timothy M. Henry
    @version 5.0
 */
-public class LinkedDictionary <K , V> 
+public class LinkedDictionary <K, V> 
              implements DictionaryInterface<K, V>
 {
 	private Node firstNode; // Reference to first node of chain
@@ -128,12 +128,6 @@ public class LinkedDictionary <K , V>
     * @param key
     * @return V
       Algorithm getValue(key)
-      index = getHashIndex(key)
-      Search the chain that begins at hashTable[index] for a node that contains key
-      if (key is found)
-      return value in found node
-      else
-      return null
     */
    public V getValue(K key) {
       V result = null;
@@ -143,7 +137,7 @@ public class LinkedDictionary <K , V>
          currNode = currNode.getNextNode();
       } // end while
       
-   if ( (currNode != null) && key.equals(currNode.getKey()) )
+   if ( (currNode != null) )
       {
          // Key in dictionary
          result = currNode.getValue(); // Get old value
@@ -151,12 +145,11 @@ public class LinkedDictionary <K , V>
    return result;
    }
    
-   /** 
-    * @param key
-    * @return boolean
-    */
+   /** Sees whether a specific entry is in this dictionary.
+       @param key  An object search key of the desired entry.
+       @return  True if key is associated with an entry in the dictionary. */
    public boolean contains(K key) {
-      return false;
+		return getValue(key) != null;
    }
    
    /** 
@@ -177,7 +170,7 @@ public class LinkedDictionary <K , V>
     * @return boolean
     */
    public boolean isEmpty() {
-      return false;
+      return isEmpty();
    }
    
    /** 
@@ -188,8 +181,8 @@ public class LinkedDictionary <K , V>
    }
 
    public void clear() {
-      numberOfEntries =0;       
-   }
+      initializeDataFields();
+      }
 
    
    /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
