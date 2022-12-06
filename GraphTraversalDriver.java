@@ -1,8 +1,5 @@
 import GraphPackage.*;
 
-import javax.lang.model.util.Elements.Origin;
-import java.lang.ArrayIndexOutOfBoundsException;
-
 import ADTPackage.*;
 
 public class GraphTraversalDriver 
@@ -65,7 +62,7 @@ public class GraphTraversalDriver
     BgraphTraversal.addEdge("I", "F");
 
 
-    System.out.println("number of vertices: " + BgraphTraversal.getNumberOfVertices() + "\nnumber of edges: " + BgraphTraversal.getNumberOfEdges());
+    System.out.println("number of vertices: " + BgraphTraversal.getNumberOfVertices() + "\nnumber of edges: " + BgraphTraversal.getNumberOfEdges()+"\n");
     System.out.println("The breadth-first traversal of the graph: " );
 
     
@@ -74,43 +71,16 @@ public class GraphTraversalDriver
     {
       System.out.print(bfs.dequeue() + " ");
     }
-    System.out.println(); 
+    System.out.println("\n"); 
 
-    
-    DirectedGraph<String> DgraphTraversal = new DirectedGraph<>();
-    DgraphTraversal.addVertex("A");
-    DgraphTraversal.addVertex("B");
-    DgraphTraversal.addVertex("C");
-    DgraphTraversal.addVertex("D");
-    DgraphTraversal.addVertex("E");
-    DgraphTraversal.addVertex("F");
-    DgraphTraversal.addVertex("G");
-    DgraphTraversal.addVertex("H");
-    DgraphTraversal.addVertex("I");
-
-
-    DgraphTraversal.addEdge("A", "B");
-    BgraphTraversal.addEdge("A", "D");
-    DgraphTraversal.addEdge("A", "E");
-    DgraphTraversal.addEdge("B", "E");
-    DgraphTraversal.addEdge("D", "G");
-    DgraphTraversal.addEdge("E", "F");
-    DgraphTraversal.addEdge("E", "H");
-    DgraphTraversal.addEdge("G", "H");
-    DgraphTraversal.addEdge("F", "C");
-    DgraphTraversal.addEdge("F", "H");
-    DgraphTraversal.addEdge("H", "I");
-    DgraphTraversal.addEdge("C", "B");
-    DgraphTraversal.addEdge("I", "F");
-
-    QueueInterface<String> dfs = DgraphTraversal.getDepthFirstTraversal("A");
+    QueueInterface<String> dfs = BgraphTraversal.getDepthFirstTraversal("A");
     System.out.println("The depth-first traversal of the graph:");
     
     while (!dfs.isEmpty())
     {
       System.out.print(dfs.dequeue() + " ");
     }
-    System.out.println(); 
+    System.out.println("\n"); 
 
    System.out.println("The breadth-first tree: \n");
 
