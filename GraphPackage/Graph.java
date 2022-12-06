@@ -1,5 +1,4 @@
 package GraphPackage;
-import java.util.*;
 
 
 import ADTPackage.*; // Classes that implement various ADTs
@@ -88,7 +87,7 @@ public class Graph<E> implements BasicGraphInterface<E>
         int vertex = graph.size();
 
         for (int i = 1; i < vertex; i++) {
-            System.out.println("\nAdjacency list of vertex " + i);
+            System.out.println("\nAdjacency list of vertex " + graph.getLabel(i));
             System.out.print("head");
             for (int j = 1; j < vertex; j++){
                 if (graph.isEdge(i, j) == true){
