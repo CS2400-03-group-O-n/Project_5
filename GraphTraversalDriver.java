@@ -39,9 +39,6 @@ public class GraphTraversalDriver
     AdjGraph.addEdge(8, 9);
     AdjGraph.addEdge(9, 6);
 
-    AdjGraph.getAdjacencyMatrix(AdjGraph);
-    AdjGraph.getAdjacencyList(AdjGraph);
-
     BgraphTraversal.addVertex("A");
     BgraphTraversal.addVertex("B");
     BgraphTraversal.addVertex("C");
@@ -61,7 +58,7 @@ public class GraphTraversalDriver
     }
     System.out.println(); 
 
-    QueueInterface<String> dfs = AdjGraph.getDepthFirstTraversal("A");
+    QueueInterface<String> dfs = BgraphTraversal.getDepthFirstTraversal("A");
     System.out.println("The depth-first traversal of the graph:");
     
     while (!dfs.isEmpty())
@@ -73,5 +70,10 @@ public class GraphTraversalDriver
    System.out.println("The breadth-first tree: \n");
 
    System.out.println("The depth-first tree: ");
+
+   System.out.println();
+   AdjGraph.getAdjacencyMatrix(AdjGraph);
+   AdjGraph.getAdjacencyList(AdjGraph);
+   System.out.println();
     }
 }
