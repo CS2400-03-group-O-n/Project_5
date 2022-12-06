@@ -217,7 +217,6 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
          "iterator is after end of list.");
          return result; // Return next entry in iteration
          } // end next
-
       public void remove()
          {
          throw new UnsupportedOperationException("remove() is not supported " +

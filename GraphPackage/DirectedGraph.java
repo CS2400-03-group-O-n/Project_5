@@ -21,7 +21,7 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
     }
    
        // < Implementations of the graph operations go here. > ...
-
+        
         public boolean addVertex(T vertexLabel)
         {
         VertexInterface<T> addOutcome = vertices.add(vertexLabel, new Vertex<>(vertexLabel));
@@ -69,7 +69,6 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
         {
         return vertices.isEmpty();
         } // end isEmpty
-
         public int getNumberOfVertices()
         {
             return vertices.getSize();
