@@ -58,8 +58,8 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
                 while (!found && neighbors.hasNext())
                 {
                     VertexInterface<T> nextNeighbor = neighbors.next();
-                    if (endVertex.equals(nextNeighbor))
-                        found = true;
+                    if (endVertex.equals(nextNeighbor)){
+                        found = true;}
                 } // end while
             } // end if
             return found;
@@ -159,8 +159,6 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
 
         return traversalOrder;
     } // end getDepthFirstTraversal
-
-
 
 
     // last three methods aren't neccessary!

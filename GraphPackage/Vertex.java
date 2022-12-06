@@ -93,7 +93,7 @@ class Vertex<T> implements VertexInterface<T>
     * @param newCost
     */
    public void setCost(double newCost) {
-      cost = 0;      // cost is irrelavent
+      cost = newCost;      // cost is irrelavent
    }
 
    /** 

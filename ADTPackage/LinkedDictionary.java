@@ -151,7 +151,7 @@ public class LinkedDictionary <K, V>
    public V getValue(K key) {
       V result = null;
       Node currNode= firstNode;
-      while ( (currNode != null) && (key.equals(currNode.getKey())) )
+      while ( (currNode != null) && (!key.equals(currNode.getKey())) )
       {
          currNode = currNode.getNextNode();
       } // end while
