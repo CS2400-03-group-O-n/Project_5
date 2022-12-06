@@ -10,9 +10,10 @@ import org.junit.Test;
 public class GTDTest 
 {
 
-  // A NORMAL CASE for breadth and depth
+  /***** NORMAL CASE for breadth and depth *****/
+
     @Test
-    public void testBreadth(){
+    public void testBreadth(){  // BREADTH FIRST TRAVERSAL
         DirectedGraph<String> BgraphTraversal = new DirectedGraph<>();
 
         BgraphTraversal.addVertex("A");
@@ -41,19 +42,16 @@ public class GTDTest
        // assertEquals (expected result, actual result)
         // expected:        actual : 
         QueueInterface<String> bfs = BgraphTraversal.getBreadthFirstTraversal("A");
-
         String graphTest = null;
         while (!bfs.isEmpty())
         {
-          graphTest =bfs.dequeue();
+          graphTest = bfs.dequeue();
         }
-        System.out.println(graphTest);
-
-        assertEquals("ABDEGFHCI", graphTest);
+        assertEquals("ABDEGFHCI", graphTest );
     }
    
     @Test
-    public void testDepth()
+    public void testDepth()   // DEPTH FIRST TRAVERSAL
     {
         DirectedGraph<String> DgraphTraversal = new DirectedGraph<>();
 
@@ -86,16 +84,16 @@ public class GTDTest
         String graphTest = null;
         while (!dfs.isEmpty())
         {
-          graphTest = dfs.dequeue();
+         graphTest = dfs.dequeue();
         }
         assertEquals("ABEFCHIDG", graphTest);
     }
 
 
-    // A NULL CASE for breadth and depth
+        /**** A NULL CASE for breadth and depth ****/
 
     @Test
-    public void testNullBreadth(){
+    public void testNullBreadth(){    // BREADTH FIRST TRAVERSAL
         DirectedGraph<String> BgraphTraversal = new DirectedGraph<>();
 
         BgraphTraversal.addVertex("A");
@@ -128,11 +126,10 @@ public class GTDTest
         String graphTest = null;
         while (!bfs.isEmpty())
         {
-          graphTest =bfs.dequeue();
-        }
-        System.out.println(graphTest);
+          graphTest = bfs.dequeue();
+\        }
+        assertEquals("ABEFIDG",  );
 
-        assertEquals("ABDEGFHCI", graphTest);
     }
 
 } 
