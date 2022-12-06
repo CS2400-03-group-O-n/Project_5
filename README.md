@@ -25,7 +25,7 @@ Katie Pham:
 
 
 Extra Credit Attempts:
-  - Task 3: Breadth-First Tree and Depth-First Tree
+ 
   - Adjacency Matrix Representation
   - Adjacency List Representation
   - Unit Testing
