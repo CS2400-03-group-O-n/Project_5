@@ -36,7 +36,10 @@ public class GraphTraversalDriver
     BgraphTraversal.addEdge("I", "F");
 
 
-    System.out.println("The breadth-first traversal of the graph: ");
+    System.out.println("number of vertices: " + BgraphTraversal.getNumberOfVertices() + "\nnumber of edges: " + BgraphTraversal.getNumberOfEdges());
+    System.out.println("The breadth-first traversal of the graph: " );
+
+    
     QueueInterface<String> bfs = BgraphTraversal.getBreadthFirstTraversal("A");
     while (!bfs.isEmpty())
     {
@@ -44,7 +47,34 @@ public class GraphTraversalDriver
     }
     System.out.println(); 
 
-    QueueInterface<String> dfs = BgraphTraversal.getDepthFirstTraversal("A");
+    
+    DirectedGraph<String> DgraphTraversal = new DirectedGraph<>();
+    DgraphTraversal.addVertex("A");
+    DgraphTraversal.addVertex("B");
+    DgraphTraversal.addVertex("C");
+    DgraphTraversal.addVertex("D");
+    DgraphTraversal.addVertex("E");
+    DgraphTraversal.addVertex("F");
+    DgraphTraversal.addVertex("G");
+    DgraphTraversal.addVertex("H");
+    DgraphTraversal.addVertex("I");
+
+
+    DgraphTraversal.addEdge("A", "B");
+    BgraphTraversal.addEdge("A", "D");
+    DgraphTraversal.addEdge("A", "E");
+    DgraphTraversal.addEdge("B", "E");
+    DgraphTraversal.addEdge("D", "G");
+    DgraphTraversal.addEdge("E", "F");
+    DgraphTraversal.addEdge("E", "H");
+    DgraphTraversal.addEdge("G", "H");
+    DgraphTraversal.addEdge("F", "C");
+    DgraphTraversal.addEdge("F", "H");
+    DgraphTraversal.addEdge("H", "I");
+    DgraphTraversal.addEdge("C", "B");
+    DgraphTraversal.addEdge("I", "F");
+
+    QueueInterface<String> dfs = DgraphTraversal.getDepthFirstTraversal("A");
     System.out.println("The depth-first traversal of the graph:");
     
     while (!dfs.isEmpty())

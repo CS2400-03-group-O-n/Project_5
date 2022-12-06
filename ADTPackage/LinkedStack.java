@@ -31,11 +31,10 @@ import java.util.EmptyStackException;
          */
         public T peek() {
                 if (isEmpty())
-                throw new EmptyStackException();
+                    throw new EmptyStackException();
                 else
-                return topNode.getData();
+                    return topNode.getData();
                 } // end peek
-    
         
         /** 
          * @return boolean

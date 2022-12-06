@@ -17,7 +17,7 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
 	public DirectedGraph()
 	{
 		edgeCount=0;
-        vertices = new LinkedDictionary<>();
+        vertices = new LinkedDictionary<T, VertexInterface<T>>();
     }
    
        // < Implementations of the graph operations go here. > ...
@@ -102,33 +102,35 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
     // To do Breadth First Traversal
     public QueueInterface<T> getBreadthFirstTraversal (T origin)
     {
-       resetVertices();
+      resetVertices();
       QueueInterface<T> traversalOrder = new LinkedQueue<T>();
       QueueInterface<VertexInterface<T>> vertexQueue = new LinkedQueue<>();
      
        VertexInterface<T> originVertex = vertices.getValue(origin);
-       originVertex.visit();
-       traversalOrder.enqueue(origin);  // enqueue vertex label
-       vertexQueue.enqueue(originVertex);  // enqueue vertex
+    originVertex.visit();
+    traversalOrder.enqueue(origin);  // enqueue vertex label
+    vertexQueue.enqueue(originVertex);  // enqueue vertex
      
        while (!vertexQueue.isEmpty())
        {
-           VertexInterface<T> frontVertex = vertexQueue.dequeue();
+         VertexInterface<T> frontVertex = vertexQueue.dequeue();
            Iterator <VertexInterface<T>> neighbors = frontVertex.getNeighborIterator();
      
-           while(neighbors.hasNext())
+          while(neighbors.hasNext())
            {
                VertexInterface<T> nextNeighbor = neighbors.next();
                if (!nextNeighbor.isVisited())
                {
-                   nextNeighbor.visit();
-                   traversalOrder.enqueue(nextNeighbor.getLabel());
-                   vertexQueue.enqueue(nextNeighbor);
+                 nextNeighbor.visit();
+                traversalOrder.enqueue(nextNeighbor.getLabel());
+                vertexQueue.enqueue(nextNeighbor);
                }
            }
        }
        return traversalOrder;
     } // end getBreadthFirstTraversal
+
+
 
     public QueueInterface<T> getDepthFirstTraversal (T origin)
     {
@@ -157,6 +159,7 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
 
         return traversalOrder;
     } // end getDepthFirstTraversal
+
 
 
 
@@ -201,6 +204,7 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
         } // end while
         return pathLength;
         } // end getShortestPath
+        
     public StackInterface<T> getTopologicalOrder() {
         
         return null;

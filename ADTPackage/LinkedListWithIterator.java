@@ -31,11 +31,11 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
    public void add(T newEntry) {
       Node newNode = new Node(newEntry);
       if (isEmpty())
-      firstNode = newNode;
+         firstNode = newNode;
       else // Add to end of nonempty list
       {
-      Node lastNode = getNodeAt(numberOfEntries);
-      lastNode.setNextNode(newNode); // Make last node reference new node
+         Node lastNode = getNodeAt(numberOfEntries);
+         lastNode.setNextNode(newNode); // Make last node reference new node
       } // end if
       numberOfEntries++;
       } // end add
@@ -59,19 +59,19 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1))
       {
       Node newNode = new Node(newEntry);
-      if (newPosition == 1) // Case 1
-      {
-         newNode.setNextNode(firstNode);
-         firstNode = newNode;
-         }
-      else // Case 2: List is not empty
-         { // and givenPosition > 1
-         Node nodeBefore = getNodeAt(newPosition - 1);
-         Node nodeAfter = nodeBefore.getNextNode();
-         newNode.setNextNode(nodeAfter);
-         nodeBefore.setNextNode(newNode);
-         } // end if
-      numberOfEntries++;
+         if (newPosition == 1) // Case 1
+         {
+            newNode.setNextNode(firstNode);
+            firstNode = newNode;
+            }
+         else // Case 2: List is not empty
+            { // and givenPosition > 1
+            Node nodeBefore = getNodeAt(newPosition - 1);
+            Node nodeAfter = nodeBefore.getNextNode();
+            newNode.setNextNode(nodeAfter);
+            nodeBefore.setNextNode(newNode);
+            } // end if
+         numberOfEntries++;
       }
       else
          throw new IndexOutOfBoundsException(
@@ -82,27 +82,28 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       T result = null; // Return value
       if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
       {
-      // Assertion: !isEmpty()
-      if (givenPosition == 1) // Case 1: Remove first entry
-      {
-      result = firstNode.getData(); // Save entry to be removed
-      firstNode = firstNode.getNextNode(); // Remove entry
-      }
-      else // Case 2: Not first entry
-      {
-         Node nodeBefore = getNodeAt(givenPosition - 1);
-         Node nodeToRemove = nodeBefore.getNextNode();
-         result = nodeToRemove.getData(); // Save entry to be removed
-         Node nodeAfter = nodeToRemove.getNextNode();
-         nodeBefore.setNextNode(nodeAfter); // Remove entry
-         } // end if
-      numberOfEntries--; // Update count
-      return result; // Return removed entry
+         // Assertion: !isEmpty()
+         if (givenPosition == 1) // Case 1: Remove first entry
+         {
+         result = firstNode.getData(); // Save entry to be removed
+         firstNode = firstNode.getNextNode(); // Remove entry
+         }
+         else // Case 2: Not first entry
+         {
+            Node nodeBefore = getNodeAt(givenPosition - 1);
+            Node nodeToRemove = nodeBefore.getNextNode();
+            result = nodeToRemove.getData(); // Save entry to be removed
+            Node nodeAfter = nodeToRemove.getNextNode();
+            nodeBefore.setNextNode(nodeAfter); // Remove entry
+            } // end if
+         numberOfEntries--; // Update count
+         return result; // Return removed entry
       }
       else
          throw new IndexOutOfBoundsException(
          "Illegal position given to remove operation.");
    } // end remove
+   
 
    public void clear() {
       initializeDataFields();
@@ -111,11 +112,11 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
    public T replace(int givenPosition, T newEntry) {
       if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
       {
-      // Assertion: !isEmpty()
-      Node desiredNode = getNodeAt(givenPosition);
-      T originalEntry = desiredNode.getData();
-      desiredNode.setData(newEntry);
-      return originalEntry;
+         // Assertion: !isEmpty()
+         Node desiredNode = getNodeAt(givenPosition);
+         T originalEntry = desiredNode.getData();
+         desiredNode.setData(newEntry);
+         return originalEntry;
       }
       else
       throw new IndexOutOfBoundsException("Illegal position given to replace operation.");
@@ -125,6 +126,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
       {
       // Assertion: !isEmpty()
+      assert !isEmpty();
       return getNodeAt(givenPosition).getData();
       }
       else
@@ -138,11 +140,11 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       T[] result = (T[])new Object[numberOfEntries];
       int index = 0;
       Node currentNode = firstNode;
-      while ((index < numberOfEntries) && (currentNode != null))
-      {
-      result[index] = currentNode.getData();
-      currentNode = currentNode.getNextNode();
-      index++;
+         while ((index < numberOfEntries) && (currentNode != null))
+         {
+         result[index] = currentNode.getData();
+         currentNode = currentNode.getNextNode();
+         index++;
       } // end while
       return result;
    } // end toArray
@@ -169,7 +171,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       if (numberOfEntries == 0) // Or getLength() == 0
          {
          // Assertion: firstNode == null
-         assert firstNode ==null;
+        assert firstNode ==null;
          result = true;
          }
       else

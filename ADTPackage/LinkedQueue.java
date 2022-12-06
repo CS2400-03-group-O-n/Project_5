@@ -40,9 +40,9 @@ public final class LinkedQueue<T> implements QueueInterface<T>
       firstNode.setData(null);
       firstNode = firstNode.getNextNode();
       
-      if (firstNode == null)
+      if (firstNode == null){
          lastNode = null;
-      
+	  }
       return front;
 	} // end dequeue
 
@@ -62,7 +62,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>
 		firstNode = null;
 		lastNode = null;
 	 } // end clearpublic void enqueue(T newEntry)
-	
+
 
 	private class Node
 	{

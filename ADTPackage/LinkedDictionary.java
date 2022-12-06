@@ -203,9 +203,6 @@ public class LinkedDictionary <K, V>
       initializeDataFields();
       }
 
-   
-
-
 
    /* Private classes KeyIterator and ValueIterator (see Segment 21.20). >
    . . . */
@@ -291,7 +288,8 @@ public class LinkedDictionary <K, V>
             key = searchKey;
             value = dataValue;
             next = null;
-         } // end constructor
+         }
+         // end constructor
 
          private Node(K searchKey, V dataValue, Node nextNode)
          {
@@ -325,8 +323,9 @@ public class LinkedDictionary <K, V>
     {
       next = nextNode;
     }
+   
      // end entry
-
+   
    } // end node 
 
 } // end SortedLinkedDictionary

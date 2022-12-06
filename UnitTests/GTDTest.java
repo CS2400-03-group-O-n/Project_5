@@ -10,6 +10,7 @@ import org.junit.Test;
 public class GTDTest 
 {
 
+  // A NORMAL CASE for breadth and depth
     @Test
     public void testBreadth(){
         DirectedGraph<String> BgraphTraversal = new DirectedGraph<>();
@@ -44,8 +45,10 @@ public class GTDTest
         String graphTest = null;
         while (!bfs.isEmpty())
         {
-          graphTest = bfs.dequeue();
+          graphTest =bfs.dequeue();
         }
+        System.out.println(graphTest);
+
         assertEquals("ABDEGFHCI", graphTest);
     }
    
@@ -85,6 +88,51 @@ public class GTDTest
         {
           graphTest = dfs.dequeue();
         }
+        assertEquals("ABEFCHIDG", graphTest);
+    }
+
+
+    // A NULL CASE for breadth and depth
+
+    @Test
+    public void testNullBreadth(){
+        DirectedGraph<String> BgraphTraversal = new DirectedGraph<>();
+
+        BgraphTraversal.addVertex("A");
+        BgraphTraversal.addVertex("B");
+        BgraphTraversal.addVertex("C");
+        BgraphTraversal.addVertex(" ");
+        BgraphTraversal.addVertex("E");
+        BgraphTraversal.addVertex("F");
+        BgraphTraversal.addVertex("");
+        BgraphTraversal.addVertex("H");
+        BgraphTraversal.addVertex("I");
+    
+        BgraphTraversal.addEdge("A", "B");
+        BgraphTraversal.addEdge("A", "D");
+        BgraphTraversal.addEdge("A", "E");
+        BgraphTraversal.addEdge("B", "E");
+        BgraphTraversal.addEdge("D", "G");
+        BgraphTraversal.addEdge("E", "");
+        BgraphTraversal.addEdge("E", "H");
+        BgraphTraversal.addEdge("G", "H");
+        BgraphTraversal.addEdge("F", "C");
+        BgraphTraversal.addEdge("F", "H");
+        BgraphTraversal.addEdge("H", "I");
+        BgraphTraversal.addEdge("C", "B");
+        BgraphTraversal.addEdge("I", "F");
+       // assertEquals (expected result, actual result)
+        // expected:        actual : 
+        QueueInterface<String> bfs = BgraphTraversal.getBreadthFirstTraversal("A");
+
+        String graphTest = null;
+        while (!bfs.isEmpty())
+        {
+          graphTest =bfs.dequeue();
+        }
+        System.out.println(graphTest);
+
         assertEquals("ABDEGFHCI", graphTest);
     }
+
 } 

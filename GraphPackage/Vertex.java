@@ -1,8 +1,6 @@
 package GraphPackage;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-
 import ADTPackage.*; // Classes that implement various ADTs
 /**
  A class of vertices for a graph.
@@ -86,16 +84,16 @@ class Vertex<T> implements VertexInterface<T>
     */
    public boolean hasPredecessor() {
       if (previousVertex != null)
-      return true;
+         return true; // recorded
       else 
-      return false;
+         return false;
    }
 
    /** 
     * @param newCost
     */
    public void setCost(double newCost) {
-      cost = 0;      
+      cost = 0;      // cost is irrelavent
    }
 
    /** 
@@ -152,10 +150,10 @@ class Vertex<T> implements VertexInterface<T>
       
       private NeighborIterator()
       {
-      edges = edgeList.getIterator();
+     edges = edgeList.getIterator();
       } // end default constructor
       
-         public boolean hasNext()
+       public boolean hasNext()
       {
       return edges.hasNext();
       } // end hasNext
@@ -170,7 +168,7 @@ class Vertex<T> implements VertexInterface<T>
          }
          else
             throw new NoSuchElementException();
-         return nextNeighbor;
+       return nextNeighbor;
       } // end next
       
       public void remove()
@@ -185,10 +183,10 @@ class Vertex<T> implements VertexInterface<T>
       
          private WeightIterator()
       {
-      edges = edgeList.getIterator();
+         edges = edgeList.getIterator();
       } // end default constructor
       
-         public boolean hasNext()
+      public boolean hasNext()
       {
       return edges.hasNext();
       } // end hasNext
@@ -199,7 +197,7 @@ class Vertex<T> implements VertexInterface<T>
          if (edges.hasNext())
          {
             Edge edgeToNextNeighbor = edges.next();
-            nextNeighbor = edgeToNextNeighbor.getWeight();
+           nextNeighbor = edgeToNextNeighbor.getWeight();
          }
          else
             throw new NoSuchElementException();
@@ -233,7 +231,7 @@ class Vertex<T> implements VertexInterface<T>
          {
          VertexInterface<T> nextNeighbor = neighbors.next();
          if (!nextNeighbor.isVisited())
-         result = nextNeighbor;
+            result = nextNeighbor;
          } // end while
          return result;
       } // end getUnvisitedNeighbor
@@ -243,16 +241,17 @@ class Vertex<T> implements VertexInterface<T>
     * @param other
     * @return boolean
     */
+    @Override
    public boolean equals(Object other)
       {
          boolean result;
          if ((other == null) || (getClass() != other.getClass()))
-         result = false;
+            result = false;
          else
          { // The cast is safe within this else clause
-         @SuppressWarnings("unchecked")
-         Vertex<T> otherVertex = (Vertex<T>)other;
-         result = label.equals(otherVertex.label);
+            @SuppressWarnings("unchecked")
+            Vertex<T> otherVertex = (Vertex<T>)other;
+           result = label.equals(otherVertex.label);
          } // end if
          return result;
       } // end equals
@@ -265,7 +264,7 @@ protected class Edge
          protected Edge(VertexInterface<T> endVertex, double edgeWeight)
          {
             vertex = endVertex;
-            weight = edgeWeight;
+           weight = edgeWeight;
          } // end constructor
          
          protected Edge(VertexInterface<T> endVertex)
